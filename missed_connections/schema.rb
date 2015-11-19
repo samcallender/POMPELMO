@@ -14,6 +14,7 @@ init_mc = <<-SQL
 		body_text text,
 		latitude VARCHAR(255),
 		longitude VARCHAR(255),
+		location_source VARCHAR(255),
 		created_at timestamp,
 		updated_at timestamp
 		);
