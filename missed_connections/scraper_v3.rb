@@ -165,7 +165,7 @@ connections_array.each do |m|
 		body_text:	body_text,
 		latitude: latitude,
 		longitude: longitude,
-		location_source: location_source	
+		location_source: location_source
 		})
 
 	# just pushing all the objects into an array so I can look at them in pry

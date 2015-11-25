@@ -1,0 +1,65 @@
+<%= form_for(@missed_connection) do |f| %>
+  <% if @missed_connection.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@missed_connection.errors.count, "error") %> prohibited this missed_connection from being saved:</h2>
+
+      <ul>
+      <% @missed_connection.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :post_id %><br>
+    <%= f.text_field :post_id %>
+  </div>
+  <div class="field">
+    <%= f.label :headline %><br>
+    <%= f.text_field :headline %>
+  </div>
+  <div class="field">
+    <%= f.label :post_date %><br>
+    <%= f.text_field :post_date %>
+  </div>
+  <div class="field">
+    <%= f.label :page_url %><br>
+    <%= f.text_field :page_url %>
+  </div>
+  <div class="field">
+    <%= f.label :borough %><br>
+    <%= f.text_field :borough %>
+  </div>
+  <div class="field">
+    <%= f.label :preference %><br>
+    <%= f.text_field :preference %>
+  </div>
+  <div class="field">
+    <%= f.label :place %><br>
+    <%= f.text_field :place %>
+  </div>
+  <div class="field">
+    <%= f.label :body_text %><br>
+    <%= f.text_field :body_text %>
+  </div>
+  <div class="field">
+    <%= f.label :latitude %><br>
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br>
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="field">
+    <%= f.label :created_at %><br>
+    <%= f.datetime_select :created_at %>
+  </div>
+  <div class="field">
+    <%= f.label :updated_at %><br>
+    <%= f.datetime_select :updated_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
