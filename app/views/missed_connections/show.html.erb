@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @missed_connection.post_id %>
+</p>
+
+<p>
+  <strong>Headline:</strong>
+  <%= @missed_connection.headline %>
+</p>
+
+<p>
+  <strong>Post date:</strong>
+  <%= @missed_connection.post_date %>
+</p>
+
+<p>
+  <strong>Page url:</strong>
+  <%= @missed_connection.page_url %>
+</p>
+
+<p>
+  <strong>Borough:</strong>
+  <%= @missed_connection.borough %>
+</p>
+
+<p>
+  <strong>Preference:</strong>
+  <%= @missed_connection.preference %>
+</p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @missed_connection.place %>
+</p>
+
+<p>
+  <strong>Body text:</strong>
+  <%= @missed_connection.body_text %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @missed_connection.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @missed_connection.longitude %>
+</p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @missed_connection.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @missed_connection.updated_at %>
+</p>
+
+<%= link_to 'Edit', edit_missed_connection_path(@missed_connection) %> |
+<%= link_to 'Back', missed_connections_path %>
