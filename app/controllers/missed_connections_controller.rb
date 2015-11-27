@@ -6,6 +6,7 @@ class MissedConnectionsController < ApplicationController
   def index
     @missed_connections = MissedConnection.all
   end
+# binding.pry
 
   # GET /missed_connections/1
   # GET /missed_connections/1.json

@@ -1,19 +1,17 @@
 class CreateMissedConnections < ActiveRecord::Migration
   def change
     create_table :missed_connections do |t|
-      t.varchar :post_id
-      t.varchar :headline
-      t.varchar :post_date
-      t.varchar :page_url
-      t.varchar :borough
-      t.varchar :preference
-      t.varchar :place
+      t.integer :post_id
+      t.string :headline
+      t.string :post_date
+      t.string :page_url
+      t.string :borough
+      t.string :preference
+      t.string :place
       t.string :body_text
-      t.varchar :latitude
-      t.varchar :longitude
-      t.timestamp :created_at
-      t.timestamp :updated_at
-
+      t.string :latitude
+      t.string :longitude
+      t.string :location_source
       t.timestamps null: false
     end
   end

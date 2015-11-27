@@ -1,7 +1,7 @@
 
 1) Use this SQL to copy tables to a CSV:
 
-COPY missed_connections(id, post_id, headline, post_date, page_url, borough, preference, place, body_text, latitude, longitude, created_at, updated_at, location_source) TO '/Users/samcallender/src/missed_connections/missed_connections-20151108.csv' WITH DELIMITER ',' CSV HEADER;
+COPY missed_connections(id, post_id, headline, post_date, page_url, borough, preference, place, body_text, latitude, longitude, created_at, updated_at, location_source) TO '/Users/Sam/src/POMPELMO/missed_connections/backup.csv' WITH DELIMITER ',' CSV HEADER;
 
 source:http://www.gistutor.com/postgresqlpostgis/10-intermediate-postgresqlpostgis-tutorials/39-how-to-import-or-export-a-csv-file-using-postgresql-copy-to-and-copy-from-queries.html
 
