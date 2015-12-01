@@ -4,6 +4,7 @@ class MissedConnectionsController < ApplicationController
   # GET /missed_connections
   # GET /missed_connections.json
   def index
+    # @missed_connections = MissedConnection.where("preference = 'm4m' and borough = 'mnh'")
     @missed_connections = MissedConnection.all
   end
 # binding.pry

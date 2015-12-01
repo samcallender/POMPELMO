@@ -126,32 +126,32 @@ connections_array.each do |m|
 	end
 
 	# This requests a longitude and latitude from Google Places API if there was not location data on the detail page
-	if latitude == ""
-		location_source = 'Google Places API'
-		puts "Google Places API"
-		total_api_requests += 1
-		keyword = place.lstrip.rstrip.gsub(/ /, "+")
-		result = HTTParty.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+api_location+'&radius='+api_radius+'&keyword='+keyword+'&key='+api_key)
+	# if latitude == ""
+	# 	location_source = 'Google Places API'
+	# 	puts "Google Places API"
+	# 	total_api_requests += 1
+	# 	keyword = place.lstrip.rstrip.gsub(/ /, "+")
+	# 	result = HTTParty.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+api_location+'&radius='+api_radius+'&keyword='+keyword+'&key='+api_key)
 		
-		if result['status'] == nil
-			puts "nil result"
-			nil_results += 1
-			latitude = "nil"
-			longitude = "nil"
-			location_source = 'none'
-		elsif result['status'] == "ZERO_RESULTS"
-			zero_results += 1
-			puts "zero_results"
-			latitude = api_latitude
-			longitude = api_longitude
-		else
-		latitude = result['results'][0]['geometry']['location']['lat']
-		longitude = result['results'][0]['geometry']['location']['lng']
-		end
+	# 	if result['status'] == nil
+	# 		puts "nil result"
+	# 		nil_results += 1
+	# 		latitude = "nil"
+	# 		longitude = "nil"
+	# 		location_source = 'none'
+	# 	elsif result['status'] == "ZERO_RESULTS"
+	# 		zero_results += 1
+	# 		puts "zero_results"
+	# 		latitude = api_latitude
+	# 		longitude = api_longitude
+	# 	else
+	# 	latitude = result['results'][0]['geometry']['location']['lat']
+	# 	longitude = result['results'][0]['geometry']['location']['lng']
+	# 	end
 
-		puts "#{place}"
-		puts "#{headline}"
-	end
+	# 	puts "#{place}"
+	# 	puts "#{headline}"
+	# end
 
 	# This creates a new missed connection in the DB
 	mc = MissedConnection.create({

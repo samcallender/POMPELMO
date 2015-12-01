@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  get '/welcome' => 'static_pages#home'
+
+  get 'static_pages/help'
+
   resources :missed_connections
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'missed_connections#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

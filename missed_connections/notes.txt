@@ -7,3 +7,7 @@ source:http://www.gistutor.com/postgresqlpostgis/10-intermediate-postgresqlpostg
 
 2) Google Maps Geocoding API Key (Server key 1)
 AIzaSyALLZ3VXoyVYMYlgXocK-3mK5fvFquC2r8
+
+
+3) Google Maps Client API Key - Browser key 1	Nov 30, 2015
+AIzaSyAZuhGzk0_JhYU4ETFd9qehI13w99KQpOw
