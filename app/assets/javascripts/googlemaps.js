@@ -1,3 +1,5 @@
+// IMPORTANT! 'map' has been set as a global variable
+
 function initMap() {
   var customMapType = new google.maps.StyledMapType([
     {
@@ -167,7 +169,8 @@ function initMap() {
 	  });
 	  var customMapTypeId = 'custom_style';
 
-	  var map = new google.maps.Map(document.getElementById('map'), {
+// IMPORTANT! 'map' has been set as a global variable
+	  map = new google.maps.Map(document.getElementById('map'), {
 	    zoom: 12,
 	    center: {lat: 40.758765, lng: -73.985206},  // Times Square
 	    mapTypeControlOptions: {
@@ -179,8 +182,13 @@ function initMap() {
 	  map.setMapTypeId(customMapTypeId);
 
 	  console.log('initmap from googlemaps.js');
+
+
 }
 
+
+
+// DRAWING MARKERS AND DATA ON THE MAP
 
 var getMarkers = function(){
 	$(function(){
@@ -190,23 +198,44 @@ var getMarkers = function(){
 			success: function(data){
 				for ( var i = 0; i < data.length; i++ ) {
 					// plotMarker( data[i].coordinate )
-                    // debugger;
-                    console.log(data[i].headline);
+                    // console.log(data[i].headline);
 
-                    // BEGIN PLACING MARKERS
+                    // parse data for markers and info windows
                     var headline = data[i].headline
+                    var preference = data[i].preference
                     var latitude = +data[i].latitude
                     var longitude = +data[i].longitude
                     var markerLatLng = {lat: latitude, lng: longitude};
 
-                    // debugger;
+                    // Content string for info windows
+                    var contentString = '<div id="content">'+
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
+                    '<div id=bodyContent>'+
+                    '<p>'+headline+'<p>'+
+                    '</div>'+
+                    '</div>'
+
+                    // CREATE INFO WINDOWS FOR MARKERS
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+                    // PLACE MARKERS
                     var marker = new google.maps.Marker({
                         // position: markerLatLng,
-                        position: {lat: 41.013, lng: -74.1243},
+                        position: markerLatLng,
                         map: map,
-                        title: headline
+                        title: headline,
+                        label: preference,
+                        animation: google.maps.Animation.DROP
                     });
-                    // END PLACING MARKERS
+
+                    // EVENT LISTENER FOR INFO WINDOWS
+                      marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                    });
 				}
 			}
 		})
@@ -214,6 +243,7 @@ var getMarkers = function(){
 }
 
 getMarkers();
+
 
 // stuff i was working on with jessie
 
