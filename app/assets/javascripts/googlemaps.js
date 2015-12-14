@@ -1,170 +1,7 @@
 // IMPORTANT! 'map' has been set as a global variable
 
 function initMap() {
-  var customMapType = new google.maps.StyledMapType([
-    {
-        "featureType": "administrative.locality",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#2c2e33"
-            },
-            {
-                "saturation": 7
-            },
-            {
-                "lightness": 19
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#ffffff"
-            },
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 100
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#ffffff"
-            },
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 100
-            },
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#bbc0c4"
-            },
-            {
-                "saturation": -93
-            },
-            {
-                "lightness": 31
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "hue": "#bbc0c4"
-            },
-            {
-                "saturation": -93
-            },
-            {
-                "lightness": 31
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "hue": "#bbc0c4"
-            },
-            {
-                "saturation": -93
-            },
-            {
-                "lightness": -2
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.local",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#e9ebed"
-            },
-            {
-                "saturation": -90
-            },
-            {
-                "lightness": -8
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#e9ebed"
-            },
-            {
-                "saturation": 10
-            },
-            {
-                "lightness": 69
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#e9ebed"
-            },
-            {
-                "saturation": -78
-            },
-            {
-                "lightness": 67
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    }
-], {
+  var customMapType = new google.maps.StyledMapType([{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}], {
 	      name: 'Custom Style'
 	  });
 	  var customMapTypeId = 'custom_style';
@@ -181,11 +18,7 @@ function initMap() {
 	  map.mapTypes.set(customMapTypeId, customMapType);
 	  map.setMapTypeId(customMapTypeId);
 
-	  console.log('initmap from googlemaps.js');
-
-
 }
-
 
 
 // DRAWING MARKERS AND DATA ON THE MAP
@@ -196,35 +29,46 @@ var getMarkers = function(){
 			url: '/missed_connections.json',
 			datatype: 'json',
 			success: function(data){
-				for ( var i = 0; i < data.length; i++ ) {
-					// plotMarker( data[i].coordinate )
-                    // console.log(data[i].headline);
 
+                console.log('ajax success')
+				for ( var i = 0; i < data.length; i++ ) {
                     // parse data for markers and info windows
+                    // debugger;
+                    var id = data[i].id.toString();
+                    var postdate =  data[i].post_date
                     var headline = data[i].headline
+                    var bodytext = data[i].body_text
                     var preference = data[i].preference
+                    var place = data[i].place
                     var latitude = +data[i].latitude
                     var longitude = +data[i].longitude
                     var markerLatLng = {lat: latitude, lng: longitude};
 
                     // Content string for info windows
-                    var contentString = '<div id="content">'+
+                    var contentString = '<div id="content" class="infowindow">'+
                     '<div id="siteNotice">'+
                     '</div>'+
                     '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
+                    '<p><i>'+place+' '+postdate+'</i></p>'+
                     '<div id=bodyContent>'+
-                    '<p>'+headline+'<p>'+
+                    '<p>'+bodytext+'<p>'+
+                    '<a href="/missed_connections/'+id+'">more</a>'+
                     '</div>'+
                     '</div>'
-
+                    
                     // CREATE INFO WINDOWS FOR MARKERS
-                    var infowindow = new google.maps.InfoWindow({
-                        content: contentString
+                    infowindow = new google.maps.InfoWindow({
+                        content: ''
                     });
 
                     // PLACE MARKERS
                     var marker = new google.maps.Marker({
-                        // position: markerLatLng,
+                        // added by me
+                        body: bodytext,
+                        headline: headline,
+                        content: contentString,
+
+                        // required
                         position: markerLatLng,
                         map: map,
                         title: headline,
@@ -234,16 +78,28 @@ var getMarkers = function(){
 
                     // EVENT LISTENER FOR INFO WINDOWS
                       marker.addListener('click', function() {
-                        infowindow.open(map, marker);
+                        infowindow.content = this.content
+                        infowindow.open(map, this);
+                        infowindow = new google.maps.InfoWindow({
+                        content: ''
+                        });
                     });
+
+                      marker.addListener('click', function(){
+                        infowindow.close();
+                        infowindow = new google.maps.InfoWindow({
+                        content: ''
+                        });
+                      });
 				}
 			}
 		})
 	})
 }
 
-getMarkers();
 
+
+getMarkers();
 
 // stuff i was working on with jessie
 
