@@ -1,3 +1,38 @@
 // Place all the styles related to the MissedConnections controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*Detail Pages*/
+
+#summary_container{
+  height: 70%;
+  margin: 10px, 10px, 10px, 10px;
+  float: left;
+  width: 60%;
+}
+
+#detail_page_summary {
+  margin: 10px, 10px, 10px, 10px;
+  max-width: 63%;
+  /*float: right;*/
+}
+
+#detail_page_map_container {
+  margin: 10px, 10px, 10px, 10px;
+  /*max-width: 30%;*/
+  height: 50%;
+}
+
+#detail_page_map {
+  height: 100%;
+}
+
+#disqus_detail_page {
+	margin: 10px, 10px, 10px, 10px;
+	float: left;
+	width: 30%;
+}
+
+.infowindow {
+  background: pink;
+}

@@ -1,82 +1,97 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Post:</strong>
-  <%= @missed_connection.post_id %>
-</p>
+<div id="summary_container">
+  
+  <!-- google map -->
+  <div id="detail_page_map_container">
+    <div id="detail_page_map"></div>
+  </div>
 
-<p>
-  <strong>Headline:</strong>
-  <%= @missed_connection.headline %>
-</p>
+  <div id="detail_page_summary">
+    <p id="notice"><%= notice %></p>
+<!--     <p>
+      <strong>Post:</strong>
+      <%= @missed_connection.post_id %>
+    </p> -->
 
-<p>
-  <strong>Post date:</strong>
-  <%= @missed_connection.post_date %>
-</p>
+    <p>
+      <strong>Headline:</strong>
+      <%= @missed_connection.headline %>
+    </p>
 
-<p>
-  <strong>Page url:</strong>
-  <%= @missed_connection.page_url %>
-</p>
+    <p>
+      <strong>Post date:</strong>
+      <%= @missed_connection.post_date %>
+    </p>
 
-<p>
-  <strong>Borough:</strong>
-  <%= @missed_connection.borough %>
-</p>
+<!--     <p>
+      <strong>Page url:</strong>
+      <%= @missed_connection.page_url %>
+    </p>
 
-<p>
-  <strong>Preference:</strong>
-  <%= @missed_connection.preference %>
-</p>
+    <p>
+      <strong>Borough:</strong>
+      <%= @missed_connection.borough %>
+    </p> -->
 
-<p>
-  <strong>Place:</strong>
-  <%= @missed_connection.place %>
-</p>
+    <p>
+      <strong>Preference:</strong>
+      <%= @missed_connection.preference %>
+    </p>
 
-<p>
-  <strong>Body text:</strong>
-  <%= @missed_connection.body_text %>
-</p>
+    <p>
+      <strong>Place:</strong>
+      <%= @missed_connection.place %>
+    </p>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @missed_connection.latitude %>
-</p>
+    <p>
+      <strong>Body text:</strong>
+      <%= @missed_connection.body_text %>
+    </p>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @missed_connection.longitude %>
-</p>
+<!--     <p>
+      <strong>Latitude:</strong>
+      <%= @missed_connection.latitude %>
+    </p>
 
-<p>
-  <strong>Created at:</strong>
-  <%= @missed_connection.created_at %>
-</p>
+    <p>
+      <strong>Longitude:</strong>
+      <%= @missed_connection.longitude %>
+    </p>
 
-<p>
-  <strong>Updated at:</strong>
-  <%= @missed_connection.updated_at %>
-</p>
+    <p>
+      <strong>Created at:</strong>
+      <%= @missed_connection.created_at %>
+    </p>
 
-<%= link_to 'Edit', edit_missed_connection_path(@missed_connection) %> |
-<%= link_to 'Back', missed_connections_path %>
+    <p>
+      <strong>Updated at:</strong>
+      <%= @missed_connection.updated_at %>
+    </p>  -->
+  </div>
+
+  <%= link_to 'Edit', edit_missed_connection_path(@missed_connection) %> |
+  <%= link_to 'Back', missed_connections_path %>
+
+</div>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZuhGzk0_JhYU4ETFd9qehI13w99KQpOw&callback=initDetailMap"></script>
+
 
 <!-- DISQUS -->
 
 <div id="disqus_thread"></div>
+
 <script>
 /**
 * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
 */
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
+
+// var disqus_config = function () {
+// this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+// // this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+// };
+
 (function() { // DON'T EDIT BELOW THIS LINE
 var d = document, s = d.createElement('script');
 
@@ -89,4 +104,6 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 <!-- DISQUS COMMENTS COUNT -->
+<div id="disqus_detail_page"></div>
 <script id="dsq-count-scr" src="//thursty.disqus.com/count.js" async></script>
+
