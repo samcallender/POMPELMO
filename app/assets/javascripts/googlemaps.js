@@ -146,6 +146,8 @@ var getDetailMarker = function(){
 
 getDetailMarker();
 
+
+
 // stuff i was working on with jessie
 
 // var plotMarker = function ( coordinate ) {
