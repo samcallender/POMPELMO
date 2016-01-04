@@ -12,7 +12,7 @@ function initMap() {
 	    zoom: 12,
 	    center: {lat: 40.758765, lng: -73.985206},  // Times Square
 	    mapTypeControlOptions: {
-	      mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
 	    }
 	  });
 
@@ -30,78 +30,70 @@ var getMarkers = function(){
 			url: '/missed_connections.json',
 			datatype: 'json',
 			success: function(data){
-
-                // MARKERS array that will be passed to markerCluster
-                var markerArray = [];
-
+                var mcOptions = {gridSize: 50, maxZoom: 15};
+                var markers = [];
 				for ( var i = 0; i < data.length; i++ ) {
-                    // parse data for markers and info windows
-                    // var id = data[i].id.toString();
-                    // var postdate =  data[i].post_date
-                    // var headline = data[i].headline
-                    // var bodytext = data[i].body_text
-                    // var preference = data[i].preference
-                    // var place = data[i].place
-                    var latitude = +data[i].latitude
-                    var longitude = +data[i].longitude
-                    var markerLatLng = {lat: latitude, lng: longitude};
+                    var id = data[i].id.toString();
+                    var postdate =  data[i].post_date;
+                    var headline = data[i].headline;
+                    var bodytext = data[i].body_text;
+                    var preference = data[i].preference;
+                    var place = data[i].place;
+                    var latitude = +data[i].latitude;
+                    var longitude = +data[i].longitude;
+                    var latLng = new google.maps.LatLng(latitude, longitude);
 
-                    // Content string for info windows
-                    // var contentString = '<div id="content" class="infowindow">'+
-                    // '<div id="siteNotice">'+
-                    // '</div>'+
-                    // '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
-                    // '<p><i>'+place+' '+postdate+'</i></p>'+
-                    // '<div id=bodyContent>'+
-                    // '<p>'+bodytext+'<p>'+
-                    // '<a href="/missed_connections/'+id+'">more</a>'+
-                    // '</div>'+
-                    // '</div>'
+
+                    // CONTENT STRING FOR INFO WINDOWS
+                    var contentString = '<div id="content" class="infowindow">'+
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
+                    '<p><i>'+place+' '+postdate+'</i></p>'+
+                    '<div id=bodyContent>'+
+                    '<p>'+bodytext+'<p>'+
+                    '<a href="/missed_connections/'+id+'">more</a>'+
+                    '</div>'+
+                    '</div>';
+                        
+                    var marker = new google.maps.Marker({
+                        // ADDED BY ME
+                            body: bodytext,
+                            headline: headline,
+                            content: contentString,
+                        // REQUIRED
+                            position: latLng,
+                            title: headline,
+                            label: preference
+                        });
+                        
+                    markers.push(marker);
                     
                     // CREATE INFO WINDOWS FOR MARKERS
-                    // infowindow = new google.maps.InfoWindow({
-                    //     content: ''
-                    // });
-
-                    // PLACE MARKERS
-                    // var marker = new google.maps.Marker({
-                    //     // added by me
-                    //     body: bodytext,
-                    //     headline: headline,
-                    //     content: contentString,
-
-                    //     // required
-                    //     position: markerLatLng,
-                    //     map: map,
-                    //     title: headline,
-                    //     label: preference
+                    infowindow = new google.maps.InfoWindow({
+                        content: ''
                     });
 
-                    markerArray.push(marker)
-
                     // EVENT LISTENER FOR INFO WINDOWS
-                    //   marker.addListener('click', function() {
-                    //     infowindow.content = this.content
-                    //     infowindow.open(map, this);
-                    //     infowindow = new google.maps.InfoWindow({
-                    //     content: ''
-                    //     });
-                    // });
+                      marker.addListener('click', function() {
+                        infowindow.content = this.content
+                        infowindow.open(map, this);
+                        infowindow = new google.maps.InfoWindow({
+                        content: ''
+                        });
+                    });
 
-                    //   marker.addListener('click', function(){
-                    //     infowindow.close();
-                    //     infowindow = new google.maps.InfoWindow({
-                    //     content: ''
-                    //     });
-                    //   });
+                      marker.addListener('click', function(){
+                        infowindow.close();
+                        infowindow = new google.maps.InfoWindow({
+                        content: ''
+                        });
+                      });
 				}
-                debugger;
-                var mcOptions = {gridSize: 50, maxZoom: 15};
-                var mc = new MarkerClusterer(map, [], mcOptions);
-                mc.addMarkers(markerArray , true);
-			}
-		})
-	})
+                var markerCluster = new MarkerClusterer(map, markers, mcOptions);
+            }
+        })
+    })
 }
 
 getMarkers();
@@ -151,14 +143,3 @@ var getDetailMarker = function(){
 }
 
 getDetailMarker();
-
-
-
-// stuff i was working on with jessie
-
-// var plotMarker = function ( coordinate ) {
-// 	var x = coordinate.x;
-// 	var y = coordinate.x
-// }
-
-// coordinate = { x: xval, y: yval }
