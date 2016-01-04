@@ -12,7 +12,7 @@ function initMap() {
 	    zoom: 12,
 	    center: {lat: 40.758765, lng: -73.985206},  // Times Square
 	    mapTypeControlOptions: {
-	      mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
 	    }
 	  });
 
@@ -31,21 +31,21 @@ var getMarkers = function(){
 			datatype: 'json',
 			success: function(data){
 
-                console.log('ajax success')
+                var mcOptions = {gridSize: 50, maxZoom: 15};
+                var markers = [];
 				for ( var i = 0; i < data.length; i++ ) {
-                    // parse data for markers and info windows
-                    // debugger;
                     var id = data[i].id.toString();
-                    var postdate =  data[i].post_date
-                    var headline = data[i].headline
-                    var bodytext = data[i].body_text
-                    var preference = data[i].preference
-                    var place = data[i].place
-                    var latitude = +data[i].latitude
-                    var longitude = +data[i].longitude
-                    var markerLatLng = {lat: latitude, lng: longitude};
+                    var postdate =  data[i].post_date;
+                    var headline = data[i].headline;
+                    var bodytext = data[i].body_text;
+                    var preference = data[i].preference;
+                    var place = data[i].place;
+                    var latitude = +data[i].latitude;
+                    var longitude = +data[i].longitude;
+                    var latLng = new google.maps.LatLng(latitude, longitude);
 
-                    // Content string for info windows
+
+                    // CONTENT STRING FOR INFO WINDOWS
                     var contentString = '<div id="content" class="infowindow">'+
                     '<div id="siteNotice">'+
                     '</div>'+
@@ -55,26 +55,24 @@ var getMarkers = function(){
                     '<p>'+bodytext+'<p>'+
                     '<a href="/missed_connections/'+id+'">more</a>'+
                     '</div>'+
-                    '</div>'
+                    '</div>';
+                        
+                    var marker = new google.maps.Marker({
+                        // ADDED BY ME
+                            body: bodytext,
+                            headline: headline,
+                            content: contentString,
+                        // REQUIRED
+                            position: latLng,
+                            title: headline,
+                            label: preference
+                        });
+                        
+                    markers.push(marker);
                     
                     // CREATE INFO WINDOWS FOR MARKERS
                     infowindow = new google.maps.InfoWindow({
                         content: ''
-                    });
-
-                    // PLACE MARKERS
-                    var marker = new google.maps.Marker({
-                        // added by me
-                        body: bodytext,
-                        headline: headline,
-                        content: contentString,
-
-                        // required
-                        position: markerLatLng,
-                        map: map,
-                        title: headline,
-                        label: preference,
-                        animation: google.maps.Animation.DROP
                     });
 
                     // EVENT LISTENER FOR INFO WINDOWS
@@ -93,9 +91,10 @@ var getMarkers = function(){
                         });
                       });
 				}
-			}
-		})
-	})
+                var markerCluster = new MarkerClusterer(map, markers, mcOptions);
+            }
+        })
+    })
 }
 
 getMarkers();
@@ -145,14 +144,3 @@ var getDetailMarker = function(){
 }
 
 getDetailMarker();
-
-
-
-// stuff i was working on with jessie
-
-// var plotMarker = function ( coordinate ) {
-// 	var x = coordinate.x;
-// 	var y = coordinate.x
-// }
-
-// coordinate = { x: xval, y: yval }
