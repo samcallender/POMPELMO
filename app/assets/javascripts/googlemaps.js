@@ -31,68 +31,74 @@ var getMarkers = function(){
 			datatype: 'json',
 			success: function(data){
 
-                console.log('ajax success')
+                // MARKERS array that will be passed to markerCluster
+                var markerArray = [];
+
 				for ( var i = 0; i < data.length; i++ ) {
                     // parse data for markers and info windows
-                    // debugger;
-                    var id = data[i].id.toString();
-                    var postdate =  data[i].post_date
-                    var headline = data[i].headline
-                    var bodytext = data[i].body_text
-                    var preference = data[i].preference
-                    var place = data[i].place
+                    // var id = data[i].id.toString();
+                    // var postdate =  data[i].post_date
+                    // var headline = data[i].headline
+                    // var bodytext = data[i].body_text
+                    // var preference = data[i].preference
+                    // var place = data[i].place
                     var latitude = +data[i].latitude
                     var longitude = +data[i].longitude
                     var markerLatLng = {lat: latitude, lng: longitude};
 
                     // Content string for info windows
-                    var contentString = '<div id="content" class="infowindow">'+
-                    '<div id="siteNotice">'+
-                    '</div>'+
-                    '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
-                    '<p><i>'+place+' '+postdate+'</i></p>'+
-                    '<div id=bodyContent>'+
-                    '<p>'+bodytext+'<p>'+
-                    '<a href="/missed_connections/'+id+'">more</a>'+
-                    '</div>'+
-                    '</div>'
+                    // var contentString = '<div id="content" class="infowindow">'+
+                    // '<div id="siteNotice">'+
+                    // '</div>'+
+                    // '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
+                    // '<p><i>'+place+' '+postdate+'</i></p>'+
+                    // '<div id=bodyContent>'+
+                    // '<p>'+bodytext+'<p>'+
+                    // '<a href="/missed_connections/'+id+'">more</a>'+
+                    // '</div>'+
+                    // '</div>'
                     
                     // CREATE INFO WINDOWS FOR MARKERS
-                    infowindow = new google.maps.InfoWindow({
-                        content: ''
-                    });
+                    // infowindow = new google.maps.InfoWindow({
+                    //     content: ''
+                    // });
 
                     // PLACE MARKERS
-                    var marker = new google.maps.Marker({
-                        // added by me
-                        body: bodytext,
-                        headline: headline,
-                        content: contentString,
+                    // var marker = new google.maps.Marker({
+                    //     // added by me
+                    //     body: bodytext,
+                    //     headline: headline,
+                    //     content: contentString,
 
-                        // required
-                        position: markerLatLng,
-                        map: map,
-                        title: headline,
-                        label: preference,
-                        animation: google.maps.Animation.DROP
+                    //     // required
+                    //     position: markerLatLng,
+                    //     map: map,
+                    //     title: headline,
+                    //     label: preference
                     });
+
+                    markerArray.push(marker)
 
                     // EVENT LISTENER FOR INFO WINDOWS
-                      marker.addListener('click', function() {
-                        infowindow.content = this.content
-                        infowindow.open(map, this);
-                        infowindow = new google.maps.InfoWindow({
-                        content: ''
-                        });
-                    });
+                    //   marker.addListener('click', function() {
+                    //     infowindow.content = this.content
+                    //     infowindow.open(map, this);
+                    //     infowindow = new google.maps.InfoWindow({
+                    //     content: ''
+                    //     });
+                    // });
 
-                      marker.addListener('click', function(){
-                        infowindow.close();
-                        infowindow = new google.maps.InfoWindow({
-                        content: ''
-                        });
-                      });
+                    //   marker.addListener('click', function(){
+                    //     infowindow.close();
+                    //     infowindow = new google.maps.InfoWindow({
+                    //     content: ''
+                    //     });
+                    //   });
 				}
+                debugger;
+                var mcOptions = {gridSize: 50, maxZoom: 15};
+                var mc = new MarkerClusterer(map, [], mcOptions);
+                mc.addMarkers(markerArray , true);
 			}
 		})
 	})
