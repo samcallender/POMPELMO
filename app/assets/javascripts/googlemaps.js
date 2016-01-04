@@ -30,7 +30,6 @@ var getMarkers = function(){
 			url: '/missed_connections.json',
 			datatype: 'json',
 			success: function(data){
-
                 var mcOptions = {gridSize: 50, maxZoom: 15};
                 var markers = [];
 				for ( var i = 0; i < data.length; i++ ) {
