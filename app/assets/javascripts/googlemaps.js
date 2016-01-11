@@ -1,4 +1,4 @@
-// IMPORTANT! 'map' has been set as a global variable
+// IMPORTANT! 'map'  and 'markers' hav been set as global variables
 
 function initMap() {
     // map style credit https://snazzymaps.com/style/55/subtle-greyscale-map
@@ -9,7 +9,8 @@ function initMap() {
 
 // IMPORTANT! 'map' has been set as a global variable
 	  map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 12,
+	    zoom: 11,
+        scrollwheel: false,
 	    center: {lat: 40.758765, lng: -73.985206},  // Times Square
 	    mapTypeControlOptions: {
           mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
@@ -29,10 +30,18 @@ var getMarkers = function(){
 		$.ajax({
 			url: '/missed_connections.json',
 			datatype: 'json',
+            beforeSend: function(){
+                console.log("data loading");
+            },
+            complete: function(){
+                console.log("complete");
+            },
 			success: function(data){
+                // OPTIONS AND MARKERS A ARRAY FOR MARKER CLUSTERS
                 var mcOptions = {gridSize: 50, maxZoom: 15};
-                var markers = [];
-				for ( var i = 0; i < data.length; i++ ) {
+                markers = [];
+
+				for(var i = 0; i < data.length; i++) {
                     var id = data[i].id.toString();
                     var postdate =  data[i].post_date;
                     var headline = data[i].headline;
@@ -63,8 +72,8 @@ var getMarkers = function(){
                             content: contentString,
                         // REQUIRED
                             position: latLng,
-                            title: headline,
-                            label: preference
+                            title: headline
+                            // label: preference
                         });
                         
                     markers.push(marker);
@@ -90,13 +99,46 @@ var getMarkers = function(){
                         });
                       });
 				}
-                var markerCluster = new MarkerClusterer(map, markers, mcOptions);
+                // CREATES MARKER CLUSTERS
+                markerCluster = new MarkerClusterer(map, markers, mcOptions);
+                // var oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});
+
+                // oms.addListener('click', function(marker, event) {
+                //     iw.setContent(marker.desc);
+                //     iw.open(map, marker);
+                //     });
             }
         })
     })
 }
 
-getMarkers();
+// getMarkers();
+
+
+var showMarkers = function() {
+    $("#addmarkers").on('click', function(){
+        console.log("addmarkers clicked");
+
+        getMarkers();
+    });
+}
+
+var hideMarkers = function() {
+    $("#removemarkers").on('click', function() {
+        console.log("remove markers clicked");
+
+        markerCluster.setMap(null);
+
+        for(var i = 0; i < markers.length; i++){
+            markers[i].setMap(null);
+        }
+    });    
+};
+
+window.onload = function(){
+    showMarkers();
+    hideMarkers();
+}
 
 
 // DETAIL PAGE MAP
