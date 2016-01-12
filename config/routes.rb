@@ -1,7 +1,25 @@
 Rails.application.routes.draw do
-  get '/welcome' => 'static_pages#home'
-
   get 'static_pages/help'
+
+  get '/map' => 'static_pages#map'
+
+  get '/missed_connections/m4m' => 'missed_connections#m4m'
+
+  get '/missed_connections/m4t' => 'missed_connections#m4t'
+
+  get '/missed_connections/m4w' => 'missed_connections#m4w'
+
+  get '/missed_connections/t4m' => 'missed_connections#t4m'
+
+  get '/missed_connections/t4t' => 'missed_connections#t4t'
+
+  get '/missed_connections/t4w' => 'missed_connections#t4w'
+
+  get '/missed_connections/w4m' => 'missed_connections#w4m'
+
+  get '/missed_connections/w4t' => 'missed_connections#w4t'
+
+  get '/missed_connections/w4w' => 'missed_connections#w4w'
 
   resources :missed_connections
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,4 +1,5 @@
 
+  <a href="/map">Back To Map</a>
 <div id="summary_container">
   
   <!-- google map -->
@@ -48,6 +49,11 @@
       <%= @missed_connection.body_text %>
     </p>
 
+    <p>
+      <strong>Location Source:</strong>
+      <%= @missed_connection.location_source %>
+    </p>
+
 <!--     <p>
       <strong>Latitude:</strong>
       <%= @missed_connection.latitude %>
@@ -69,6 +75,7 @@
     </p>  -->
   </div>
 
+
   <%= link_to 'Edit', edit_missed_connection_path(@missed_connection) %> |
   <%= link_to 'Back', missed_connections_path %>
 
@@ -79,7 +86,7 @@
 
 <!-- DISQUS -->
 
-<div id="disqus_thread"></div>
+<div id="disqus_thread">
 
 <script>
 /**

@@ -4,11 +4,46 @@ class MissedConnectionsController < ApplicationController
   # GET /missed_connections
   # GET /missed_connections.json
   def index
-    # @missed_connections = MissedConnection.where("preference = 'm4m' and borough = 'mnh'")
-    # Pry.start(binding)
     @missed_connections = MissedConnection.all
   end
-# binding.pry
+
+  #GET /missed_connections/m4m
+  #GET /missed_connections/m4m.json
+  def m4m
+    @missed_connections = MissedConnection.where("preference = 'm4m'")
+  end
+
+  def m4t
+    @missed_connections = MissedConnection.where("preference = 'm4t'")
+  end
+
+  def m4w
+    @missed_connections = MissedConnection.where("preference = 'm4w'")
+  end
+
+  def t4m
+    @missed_connections = MissedConnection.where("preference = 't4m'")
+  end
+
+  def t4t
+    @missed_connections = MissedConnection.where("preference = 't4t'")
+  end
+
+  def t4w
+    @missed_connections = MissedConnection.where("preference = 't4w'")
+  end
+
+  def w4m
+    @missed_connections = MissedConnection.where("preference = 'w4m'")
+  end
+
+  def w4t
+    @missed_connections = MissedConnection.where("preference = 'w4t'")
+  end
+
+  def w4w
+    @missed_connections = MissedConnection.where("preference = 'w4w'")
+  end
 
   # GET /missed_connections/1
   # GET /missed_connections/1.json
