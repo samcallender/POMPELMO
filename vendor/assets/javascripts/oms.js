@@ -7,6 +7,8 @@ Released under the MIT licence: http://opensource.org/licenses/mit-license
 Note: The Google Maps API v3 must be included *before* this code
 */
 
+var loadOMS = function() {
+console.log("oms loaded");
 
 (function() {
   var _ref,
@@ -566,4 +568,6 @@ Note: The Google Maps API v3 must be included *before* this code
 
   })();
 
-}).call(this);
+}).call(this);  
+};
+

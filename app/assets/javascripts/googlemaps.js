@@ -19,8 +19,13 @@ function initMap() {
 	    }
 	  });
 
+    var transitLayer = new google.maps.TransitLayer();    
+    transitLayer.setMap(map);
+
 	  map.mapTypes.set(customMapTypeId, customMapType);
 	  map.setMapTypeId(customMapTypeId);
+      getMarkers();
+      loadOMS();
 
 }
 
@@ -44,6 +49,16 @@ var getMarkers = function(){
                 // OPTIONS AND MARKERS A ARRAY FOR MARKER CLUSTERS
                 var mcOptions = {gridSize: 50, maxZoom: 15};
                 markers = [];
+
+                var oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});
+
+                oms.addListener('click', function(marker, event) {
+                    iw.setContent(marker.desc);
+                    iw.open(map, marker);
+                    });
+                oms.addListener('spiderfy', function(markers) {
+                    iw.close();
+                    });
 
 				for(var i = 0; i < data.length; i++) {
                     var id = data[i].id.toString();
@@ -78,11 +93,13 @@ var getMarkers = function(){
                             content: contentString,
                         // REQUIRED
                             position: latLng,
+                            map: map,
                             title: headline
                             // label: preference
                         });
                         
                     markers.push(marker);
+                    oms.addMarker(marker);
                     
                     // CREATE INFO WINDOWS FOR MARKERS
                     infowindow = new google.maps.InfoWindow({
@@ -107,18 +124,10 @@ var getMarkers = function(){
 				}
                 // CREATES MARKER CLUSTERS
                 markerCluster = new MarkerClusterer(map, markers, mcOptions);
-                // var oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});
-
-                // oms.addListener('click', function(marker, event) {
-                //     iw.setContent(marker.desc);
-                //     iw.open(map, marker);
-                //     });
             }
         })
     })
 }
-
-getMarkers();
 
 var showMarkers = function() {
     $("#addmarkers").on('click', function(){
@@ -141,7 +150,7 @@ var hideMarkers = function() {
 };
 
 var filterMarkers = function() {
-    $(".mapoption").on('click', function(){
+    $(".filter").on('click', function(){
         var option = this.id.toString();
         console.log(option);
         var url = '/missed_connections/'+option+'.json';
@@ -228,22 +237,16 @@ var filterMarkers = function() {
                 }
                 // CREATES MARKER CLUSTERS
                 markerCluster = new MarkerClusterer(map, markers, mcOptions);
-                // var oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});
+                var oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});
 
-                // oms.addListener('click', function(marker, event) {
-                //     iw.setContent(marker.desc);
-                //     iw.open(map, marker);
-                //     });
+                oms.addListener('click', function(marker, event) {
+                    iw.setContent(marker.desc);
+                    iw.open(map, marker);
+                    });
             }
         })
     })
     });
-}
-
-window.onload = function(){
-    showMarkers();
-    hideMarkers();
-    filterMarkers();
 }
 
 
@@ -295,4 +298,8 @@ var getDetailMarker = function(){
     })
 }
 
-getDetailMarker();
+window.onload = function(){
+    showMarkers();
+    hideMarkers();
+    filterMarkers();
+}
