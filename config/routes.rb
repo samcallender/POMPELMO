@@ -3,17 +3,23 @@ Rails.application.routes.draw do
 
   get '/map' => 'static_pages#map'
 
+  get '/missed_connections/m' => 'missed_connections#m'
+
   get '/missed_connections/m4m' => 'missed_connections#m4m'
 
   get '/missed_connections/m4t' => 'missed_connections#m4t'
 
   get '/missed_connections/m4w' => 'missed_connections#m4w'
 
+  get '/missed_connections/t' => 'missed_connections#t'
+
   get '/missed_connections/t4m' => 'missed_connections#t4m'
 
   get '/missed_connections/t4t' => 'missed_connections#t4t'
 
   get '/missed_connections/t4w' => 'missed_connections#t4w'
+
+  get 'missed_connections/w' => 'missed_connections#w'
 
   get '/missed_connections/w4m' => 'missed_connections#w4m'
 

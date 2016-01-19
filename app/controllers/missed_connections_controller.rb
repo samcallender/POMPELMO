@@ -9,6 +9,11 @@ class MissedConnectionsController < ApplicationController
 
   #GET /missed_connections/m4m
   #GET /missed_connections/m4m.json
+  
+  def m
+    @missed_connections = MissedConnection.where(:preference => ['m4m', 'm4t', 'm4w'])
+  end
+
   def m4m
     @missed_connections = MissedConnection.where("preference = 'm4m'")
   end
@@ -19,6 +24,10 @@ class MissedConnectionsController < ApplicationController
 
   def m4w
     @missed_connections = MissedConnection.where("preference = 'm4w'")
+  end
+
+  def t
+    @missed_connections = MissedConnection.where(:preference => ['t4m', 't4t', 't4w'])
   end
 
   def t4m
@@ -33,6 +42,10 @@ class MissedConnectionsController < ApplicationController
     @missed_connections = MissedConnection.where("preference = 't4w'")
   end
 
+  def w
+    @missed_connections = MissedConnection.where(:preference => ['w4m', 'w4t', 'w4w'])
+  end
+
   def w4m
     @missed_connections = MissedConnection.where("preference = 'w4m'")
   end
@@ -43,6 +56,10 @@ class MissedConnectionsController < ApplicationController
 
   def w4w
     @missed_connections = MissedConnection.where("preference = 'w4w'")
+  end
+
+  def search
+    @missed_connections = MissedConnections.where(:created_at => @selected_date.beginning_of_day..@selected_date.end_of_day)
   end
 
   # GET /missed_connections/1

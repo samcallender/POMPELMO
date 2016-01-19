@@ -45,51 +45,109 @@
 	width: 30%;
 }
 
+/*INFOWINDOWS*/
+
+/*.gm-style-iw is a google maps API class for infowindows*/
+.gm-style-iw {
+   width: 350px !important;
+   top: 0 !important;
+   left: 0 !important;
+   background-color: #fff;
+   /*box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);*/
+   /*border: 1px solid rgba(72, 181, 233, 0.6);
+   border-radius: 2px 2px 0 0;*/
+}
+
 .infowindow {
-  background: yellow;
+/*  height: 250px;
+  width: 200px;
+  border-radius: 2px 2px 10px 10px;
+
+  margin: 0px;*/
 }
 
 
+/*Controls*/
+
+#controls{
+  background-color: #011019;
+  top: 10%;
+  z-index: 1;
+  position: fixed; 
+  left: 10px;
+  opacity: .8;
+  border-radius: 5px;
+}
 
 /*MAP FILTER OPTIONS*/
 #mapcontrols {
-  text-align: center;
-  position: fixed;
+  /*text-align: center;*/
+  /*position: fixed;*/
   z-index: 1;
-  top: 30%;
+  /*top: 30%;*/
   left: 10px;
-  background-color: red;
+  background-color: #011019;
   opacity: .8;
   color: #fff;
+  border-radius: 5px;
 
   li{
     padding: 5px 5px 5px 5px;
     cursor: pointer;
-    transition: background-color 0.6s, color 0.6s;
+    transition: background-color 1s, color 0.6s;
+    list-style: none;
 
     &:hover {
       background-color: #fff;
-      color: red;
+      color: #011019;
     }
   }
 }
 
+
+
+.gender-group {
+  float: left;
+}
+
+.preference-option {
+  /*float: left;*/
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 1.5s;
+}
+
+.preference-option.active {
+  /*float: left;*/
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition: all 1.5s;
+}
+
 /*MAP DATE FILTER*/
 #mapdatecontrol {
-  text-align: center;
-  position: fixed;
-  z-index: 1;
-  top: 10%;
+  /*text-align: center;*/
+  /*position: fixed;*/
+  /*z-index: 1;*/
+  /*top: 10%;*/
   left: 10px;
-  background-color: red;
+  background-color: #011019;
+  color: #fff;
   opacity: .8;
+  border-radius: 5px;
 
   input {
     display: block;
-    margin: 5px 5px 5px 5px;
+    margin: 15px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
   }
+
   button {
     padding: 5px 5px 5px 5px;
+    border-radius: 5px;
+    margin: 0px 0px 5px 0px;
   }
 }
 
