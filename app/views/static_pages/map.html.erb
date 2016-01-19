@@ -7,30 +7,36 @@
 		<form id="dateform">
 			<input type="text" placeholder="start date" name="created_at">
 			<input type="text" placeholder="end date" name="created_at">
-			<button type="submit">submit</button>
+			<button type="submit">Adjust Dates</button>
 		</form>
+	</div>
+	<div id="filter-header">
+		<p>Filter Options:</p>
 	</div>
 	<div id="mapcontrols">
 	 	<ul>
-	 		<li id="removemarkers" class="mapoption filter">Clear</li>
-	 		<li class="mapoption filter" id="addmarkers">All</li>
+	 		<li id="expand-options" class="mapoption filter">Options</li>
+	 		<li id="removemarkers" class="mapoption filter">Clear Map</li>
+	 		<div class="gender-group clear">
+	 			<li class="mapoption filter" id="addmarkers">All</li>
+	 		</div>
 	 		<div class="gender-group">
 			 		<li class="mapoption gender-option filter" id="m"> Men </li>	
-			 		<li class="mapoption preference-option filter" id="m4m">M4M</li>
-			 		<li class="mapoption preference-option filter" id="m4t">M4T</li>
-			 		<li class="mapoption preference-option filter" id="m4w">M4W</li>	
+			 		<li class="mapoption preference-option filter" id="m4m">Men for Men</li>
+			 		<li class="mapoption preference-option filter" id="m4t">Men for Trans</li>
+			 		<li class="mapoption preference-option filter" id="m4w">Men for Women</li>	
 	 		</div>
 	 		<div class="gender-group">
 	 			<li class="mapoption gender-option filter" id="t"> Trans </li>	
-		 		<li class="mapoption preference-option filter" id="t4m">T4M</li>
-		 		<li class="mapoption preference-option filter" id="t4t">T4T</li>
-		 		<li class="mapoption preference-option filter" id="t4w">T4W</li>
+		 		<li class="mapoption preference-option filter" id="t4m">Trans for Men</li>
+		 		<li class="mapoption preference-option filter" id="t4t">Trans for Trans</li>
+		 		<li class="mapoption preference-option filter" id="t4w">Trans for Women</li>
 	 		</div>
 	 		<div class="gender-group">
 		 		<li class="mapoption gender-option filter" id="w"> Women </li>	
-		 		<li class="mapoption preference-option filter" id="w4m">W4M</li>
-		 		<li class="mapoption preference-option filter" id="w4t">W4T</li>
-		 		<li class="mapoption preference-option filter" id="w4w">W4W</li>
+		 		<li class="mapoption preference-option filter" id="w4m">Women for Men</li>
+		 		<li class="mapoption preference-option filter" id="w4t">Women for Trans</li>
+		 		<li class="mapoption preference-option filter" id="w4w">Women for Women</li>
 		 	</div>
 	 	</ul>
 	</div>

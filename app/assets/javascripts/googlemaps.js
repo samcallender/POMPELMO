@@ -182,6 +182,26 @@ var hideMarkers = function() {
     });    
 };
 
+var revealGender = function(){
+    $('#expand-options').hover(function(){
+        $('#controls').addClass('active');
+        $('#addmarkers').addClass('active');
+        $('.gender-group').addClass('active');
+    }, function(){
+
+    });
+};
+
+var hideGender = function(){
+    $('#mapcontrols').hover(function(){
+
+    }, function(){
+        $('#controls').removeClass('active');
+        $('#addmarkers').removeClass('active');
+        $('.gender-group').removeClass('active');
+    });
+};
+
 var revealOptions = function(){
     $('.gender-group').hover(function(){
         console.log('hover');
@@ -195,7 +215,7 @@ var revealOptions = function(){
 
 var hideOptions = function(){
     $('.gender-group').hover(function(){
-        console.log('mouseOut');
+
     }, function(){
         $('.preference-option').removeClass('active');
     });
@@ -346,8 +366,11 @@ window.onload = function(){
     hideMarkers();
 
     filterMarkers();
-    filterDates();
 
+    revealGender();
+    hideGender();
     revealOptions();
     hideOptions();
+
+    filterDates();
 }
