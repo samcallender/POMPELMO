@@ -88,8 +88,8 @@ var getMarkers = function(){
                     });
 
 				for(var i = 0; i < data.length; i++) {
-                    var id = data[i].id.toString();
                     var postdate =  data[i].post_date;
+                    var id = data[i].id.toString();
                     var headline = data[i].headline;
                     var bodytext = data[i].body_text;
                     var preference = data[i].preference;
@@ -323,16 +323,126 @@ var filterMarkers = function() {
     });
 }
 
+
+
+
 var filterDates = function(){
+    // REMINDER:  change this to to use datepicker from JqueryUI
     $('#dateform').on('submit', function(event){
         event.preventDefault();
-        var form_data = $(this).serialize();
-        var form_el = $(this);
-        console.log(form_data);
-        // add ajax
-        // debugger;
+
+        markerCluster.setMap(null);
+        for(var i = 0; i < markers.length; i++){
+            markers[i].setMap(null);
+        }
+
+        $(function(){
+            $.ajax({
+                url: '/missed_connections.json',
+                datatype: 'json',
+                beforeSend: function(){
+                    console.log("data loading");
+                    $("#loading").removeClass('hidden');
+                },
+                complete: function(){
+                    console.log("complete");
+                    $("#loading").addClass('hidden');
+                },
+                success: function(data){
+                    // OPTIONS AND MARKERS ARRAY FOR MARKER CLUSTERS
+                    var mcOptions = {gridSize: 50, maxZoom: 15,};
+                    markers = [];
+
+                    var form_data = $('#dateform').serializeArray();
+                    var userStartDate = form_data[0].value.split('-');
+                    var userEndDate = form_data[1].value.split('-');
+                    var startDate = parseInt(userStartDate[0]+userStartDate[1]+userStartDate[2]);
+                    var endDate = parseInt(userEndDate[0]+userEndDate[1]+userEndDate[2]);
+
+                    markerCounter = 0;
+                    for(var i = 0; i < data.length; i++) {
+                        var id = data[i].id.toString();
+                        var postdate =  data[i].post_date;
+                        var headline = data[i].headline;
+                        var bodytext = data[i].body_text;
+                        var preference = data[i].preference;
+                        var place = data[i].place;
+                        var latitude = +data[i].latitude;
+                        var longitude = +data[i].longitude;
+                        var latLng = new google.maps.LatLng(latitude, longitude);
+                        var source = data[i].location_source;
+
+                        // converted date for filtering
+                        var userFilterDate = postdate.substring(0,10).split('-');
+                        var filterDate = filterDate = parseInt(userFilterDate[0]+userFilterDate[1]+userFilterDate[2]);
+
+                        // CONTENT STRING FOR INFO WINDOWS
+                        var contentString = '<div id="content" class="infowindow">'+
+                        '<div id="siteNotice">'+
+                        '</div>'+
+                        '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
+                        '<p><i>'+place+' '+postdate+'</i></p>'+
+                        '<p><i> Source: '+source+'</i><p>'+
+                        '<div id=bodyContent>'+
+                        '<p>'+bodytext+'<p>'+
+                        '<a href="/missed_connections/'+id+'">more</a>'+
+                        '</div>'+
+                        '</div>';
+                        
+                        if ( filterDate >= startDate && filterDate <= endDate ) {
+                            markerCounter += 1;
+
+                            var marker = new google.maps.Marker({
+                                // ADDED BY ME
+                                    body: bodytext,
+                                    headline: headline,
+                                    content: contentString,
+                                // REQUIRED
+                                    position: latLng,
+                                    title: headline
+                                    // label: preference
+                                });
+                            
+                                markers.push(marker);
+                        
+                        // CREATE INFO WINDOWS FOR MARKERS
+                                infowindow = new google.maps.InfoWindow({
+                                    content: ''
+                                });
+
+                        // EVENT LISTENER FOR INFO WINDOWS
+                                marker.addListener('click', function() {
+                                    infowindow.content = this.content
+                                    infowindow.open(map, this);
+                                    infowindow = new google.maps.InfoWindow({
+                                        content: ''
+                                    });
+                                });
+
+                                marker.addListener('click', function(){
+                                    infowindow.close();
+                                    infowindow = new google.maps.InfoWindow({
+                                        content: ''
+                                    });
+                                });
+                        };
+                    }
+                    // CREATES MARKER CLUSTERS
+                    markerCluster = new MarkerClusterer(map, markers, mcOptions);
+                }
+            })
+        })
     });
 }
+
+// LKSJDFKLSDJLKFJSDLKJFLKJDF
+
+
+
+// SDKLFJSDLKJFLKSJDFLKJSDKLFJ
+
+
+
 
 
 // /*

@@ -11,7 +11,7 @@
 }
 
 #controls.active{
-  width: 240px;
+  width: 250px;
 }
 
 /*MAP DATE FILTER*/
@@ -34,8 +34,6 @@
     width: 100px;
 
     &:focus {
-      background: #fc9fff;
-      box-shadow: 0 0 5px #fc9fff;
     }
   }
 
@@ -45,7 +43,16 @@
     margin: 5px 0px 5px 5px;
     background-color: #333333;
     color: #fff;
+    cursor: pointer;
+    transition: all .6s;
+    
+    &:hover {
+    background-color: #fff;
+    color: #011019;
+    font-weight: bold;
+    }
   }
+
 }
 
 /*MAP FILTER OPTIONS*/
@@ -74,6 +81,7 @@
     &:hover {
       background-color: #fff;
       color: #011019;
+      font-weight: bold;
     }
   }
 }
