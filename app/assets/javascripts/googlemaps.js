@@ -38,11 +38,9 @@ var getMarkers = function(){
 			url: '/missed_connections.json',
 			datatype: 'json',
             beforeSend: function(){
-                console.log("data loading");
                 $("#loading").removeClass('hidden');
             },
             complete: function(){
-                console.log("complete");
                 $("#loading").addClass('hidden');
             },
 			success: function(data){
@@ -163,7 +161,6 @@ var getMarkers = function(){
 
 var showMarkers = function() {
     $("#addmarkers").on('click', function(){
-        console.log("addmarkers clicked");
 
         getMarkers();
     });
@@ -171,7 +168,6 @@ var showMarkers = function() {
 
 var hideMarkers = function() {
     $("#removemarkers").on('click', function() {
-        console.log("remove markers clicked");
 
         markerCluster.setMap(null);
 
@@ -204,7 +200,6 @@ var hideGender = function(){
 
 var revealOptions = function(){
     $('.gender-group').hover(function(){
-        console.log('hover');
         // $('.preference-option').addClass('active');
         $(this).children('.preference-option').addClass('active');
         // $(this).children('.preference-option').css( "color", "green" );
@@ -224,7 +219,6 @@ var hideOptions = function(){
 var filterMarkers = function() {
     $(".filter").on('click', function(){
         var option = this.id.toString();
-        console.log(option);
         var url = '/missed_connections/'+option+'.json';
         markerCluster.setMap(null);
         for(var i = 0; i < markers.length; i++){
@@ -235,11 +229,9 @@ var filterMarkers = function() {
             url: url,
             datatype: 'json',
             beforeSend: function(){
-                console.log("data loading");
                 $("#loading").removeClass('hidden');
             },
             complete: function(){
-                console.log("complete");
                 $("#loading").addClass('hidden');
             },
             success: function(data){
@@ -323,8 +315,23 @@ var filterMarkers = function() {
     });
 }
 
+var filterArray = [];
 
-
+var addToFilter = function(){
+    $('.filter').on('click', function(){
+        var a = this.id.toString();
+        console.log(a);
+        var b = $.inArray(a, filterArray);
+        var index = filterArray.indexOf(a);
+        if(b <= -1){
+            filterArray.push(a);
+        } else if(b >= 0){
+            filterArray.splice(index,1);
+        };
+    $(this).toggleClass('selected');
+    console.log(filterArray);
+    });
+};
 
 var filterDates = function(){
     // REMINDER:  change this to to use datepicker from JqueryUI
@@ -336,16 +343,20 @@ var filterDates = function(){
             markers[i].setMap(null);
         }
 
-        $(function(){
+        var urlStem = '/missed_connections';
+
+        for( var i = 0; i <filterArray.length; i ++){
+            var option = filterArray[i];
+            var url = '/missed_connections/'+option+'.json'
+
+                    $(function(){
             $.ajax({
-                url: '/missed_connections.json',
+                url: url,
                 datatype: 'json',
                 beforeSend: function(){
-                    console.log("data loading");
                     $("#loading").removeClass('hidden');
                 },
                 complete: function(){
-                    console.log("complete");
                     $("#loading").addClass('hidden');
                 },
                 success: function(data){
@@ -432,6 +443,10 @@ var filterDates = function(){
                 }
             })
         })
+
+        }
+
+
     });
 }
 
@@ -475,7 +490,7 @@ window.onload = function(){
     showMarkers();
     hideMarkers();
 
-    filterMarkers();
+    // filterMarkers();
 
     revealGender();
     hideGender();
@@ -483,4 +498,8 @@ window.onload = function(){
     hideOptions();
 
     filterDates();
+    addToFilter();
 }
+
+
+
