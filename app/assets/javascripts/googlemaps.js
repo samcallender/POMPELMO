@@ -77,10 +77,10 @@ var getMarkers = function(){
 
                 oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});
 
-                oms.addListener('click', function(marker, event) {
-                    iw.setContent(marker.desc);
-                    iw.open(map, marker);
-                    });
+                // oms.addListener('click', function(marker, event) {
+                //     iw.setContent(marker.desc);
+                //     iw.open(map, marker);
+                //     });
                 oms.addListener('spiderfy', function(markers) {
                     iw.close();
                     });
@@ -99,25 +99,47 @@ var getMarkers = function(){
 
 
                     // CONTENT STRING FOR INFO WINDOWS
-                    var contentString = '<div id="content" class="infowindow">'+
-                        // '<div id="siteNotice">'+
-                        // '</div>'+
-                        '<div class="iw-header-container">'+
-                            '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
-                        '</div>'+
-                        '<div>'+
-                            '<p><i>'+place+' '+postdate+'</i></p>'+
-                            '<p><i> Source: '+source+'</i><p>'+
-                        '</div>'+
-                        '<div id=bodyContent>'+
-                            '<p>'+bodytext+'<p>'+
-                            '<a href="/missed_connections/'+id+'">more</a>'+
-                        '</div>'+
-                    '</div>';
-                        
+                    var contentString = '<div id="iw-container" class="infowindow">'+
+                            // '<div id="siteNotice">'+
+                            // '</div>'+
+                                '<div class="iw-title">'+headline+'</div>'+
+                                '<div class="iw-content">'+
+                                    '<p class="iw-subTitle"><i>'+place+' '+postdate+' '+source+'</i></p>'+
+                                    '<p>'+bodytext+'<p>'+
+                                    '<a href="/missed_connections/'+id+'">more</a>'+
+                                '</div>'+
+                                    '<div class="iw-bottom-gradient"></div>' +
+                            '</div>';
+                    
+                    var icon_url = '';
+
+                    if (preference == 'm4m') {
+                        var icon_url = 'http://i.imgur.com/tzFX01D.png';
+                    } else if (preference == 'm4t') {
+                        var icon_url = 'http://i.imgur.com/6HsvjKD.png';
+                    } else if (preference == 'm4w') {
+                        var icon_url = 'http://i.imgur.com/t3jmiYL.png';
+                    } else if (preference == 't4m') {
+                        var icon_url = 'http://i.imgur.com/UGFQjwQ.png';
+                    } else if (preference == 't4t') {
+                        var icon_url = 'http://i.imgur.com/BdybBva.png';
+                    } else if (preference == 't4w') {
+                        var icon_url = 'http://i.imgur.com/SLPjTxb.png';
+                    } else if (preference == 'w4m') {
+                        var icon_url = 'http://i.imgur.com/ixTZpEj.png';
+                    } else if (preference == 'w4t') {
+                        var icon_url = 'http://i.imgur.com/Nxq4YFl.png';
+                    } else if (preference == 'w4w') {
+                        var icon_url = 'http://i.imgur.com/XqiTYNu.png';
+                    } else {
+                        var icon_url = 'http://i.imgur.com/JqL9xVx.png';
+                    };
+
+
                     var marker = new google.maps.Marker({
                         // ADDED BY ME
-                            icon: "http://www.kidsafeseafood.org/wp-content/uploads/2011/07/icon_heart.png",
+                            // icon: "http://www.kidsafeseafood.org/wp-content/uploads/2011/07/icon_heart.png",
+                            icon: icon_url,
                             body: bodytext,
                             headline: headline,
                             content: contentString,
@@ -151,6 +173,60 @@ var getMarkers = function(){
                         content: ''
                         });
                       });
+
+                        // *
+  // START INFOWINDOW CUSTOMIZE.
+  // The google.maps.event.addListener() event expects
+  // the creation of the infowindow HTML structure 'domready'
+  // and before the opening of the infowindow, defined styles are applied.
+  // *
+  google.maps.event.addListener(infowindow, 'domready', function() {
+
+    // Reference to the DIV that wraps the bottom of infowindow
+    var iwOuter = $('.gm-style-iw');
+
+    /* Since this div is in a position prior to .gm-div style-iw.
+     * We use jQuery and create a iwBackground variable,
+     * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
+    */
+    var iwBackground = iwOuter.prev();
+
+    // Removes background shadow DIV
+    iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+
+    // Removes white background DIV
+    iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+
+    // Moves the infowindow 115px to the right.
+    // iwOuter.parent().parent().css({left: '115px'});
+
+    // Moves the shadow of the arrow 76px to the left margin.
+    // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+
+    // Moves the arrow 76px to the left margin.
+    iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+
+    // Changes the desired tail shadow color.
+    iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'RGBA(1, 16, 25, .6) 0px 1px 6px', 'z-index' : '1'});
+
+    // Reference to the div that groups the close button elements.
+    var iwCloseBtn = iwOuter.next();
+
+    // Apply the desired effect to the close button
+    iwCloseBtn.css({opacity: '1', right: '38px', top: '3px', border: '7px solid #011019', 'border-radius': '13px', 'box-shadow': '0 0 5px RGBA(1, 16, 25, 1)'});
+
+    // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
+    if($('.iw-content').height() < 140){
+      $('.iw-bottom-gradient').css({display: 'none'});
+    }
+
+    // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
+    iwCloseBtn.mouseout(function(){
+      $(this).css({opacity: '1'});
+    });
+  });
+
+
 				}
                 // CREATES MARKER CLUSTERS
                 markerCluster = new MarkerClusterer(map, markers, mcOptions);
@@ -214,6 +290,7 @@ var hideOptions = function(){
     }, function(){
         $('.preference-option').removeClass('active');
     });
+    var filterArray = [];
 };
 
 var filterMarkers = function() {
@@ -255,17 +332,17 @@ var filterMarkers = function() {
 
 
                     // CONTENT STRING FOR INFO WINDOWS
-                    var contentString = '<div id="content" class="infowindow">'+
-                    '<div id="siteNotice">'+
-                    '</div>'+
-                    '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
-                    '<p><i>'+place+' '+postdate+'</i></p>'+
-                    '<p><i> Source: '+source+'</i><p>'+
-                    '<div id=bodyContent>'+
-                    '<p>'+bodytext+'<p>'+
-                    '<a href="/missed_connections/'+id+'">more</a>'+
-                    '</div>'+
-                    '</div>';
+                    var contentString = '<div id="iw-container" class="infowindow">'+
+                            // '<div id="siteNotice">'+
+                            // '</div>'+
+                                '<div class="iw-title">'+headline+'</div>'+
+                                '<div class="iw-content">'+
+                                    '<p class="iw-subTitle"><i>'+place+' '+postdate+' '+source+'</i></p>'+
+                                    '<p>'+bodytext+'<p>'+
+                                    '<a href="/missed_connections/'+id+'">more</a>'+
+                                '</div>'+
+                                    '<div class="iw-bottom-gradient"></div>' +
+                            '</div>';
                         
                     var marker = new google.maps.Marker({
                         // ADDED BY ME
@@ -362,7 +439,18 @@ var filterDates = function(){
                 success: function(data){
                     // OPTIONS AND MARKERS ARRAY FOR MARKER CLUSTERS
                     var mcOptions = {gridSize: 50, maxZoom: 15,};
+
                     markers = [];
+
+                    oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: true, markersWontHide: true});
+
+                // oms.addListener('click', function(marker, event) {
+                //     iw.setContent(marker.desc);
+                //     iw.open(map, marker);
+                //     });
+                    oms.addListener('spiderfy', function(markers) {
+                        iw.close();
+                        });
 
                     var form_data = $('#dateform').serializeArray();
                     var userStartDate = form_data[0].value.split('-');
@@ -388,23 +476,49 @@ var filterDates = function(){
                         var filterDate = filterDate = parseInt(userFilterDate[0]+userFilterDate[1]+userFilterDate[2]);
 
                         // CONTENT STRING FOR INFO WINDOWS
-                        var contentString = '<div id="content" class="infowindow">'+
-                        '<div id="siteNotice">'+
-                        '</div>'+
-                        '<h1 id="firstHeading" class="firstHeading">'+headline+'</h1>'+
-                        '<p><i>'+place+' '+postdate+'</i></p>'+
-                        '<p><i> Source: '+source+'</i><p>'+
-                        '<div id=bodyContent>'+
-                        '<p>'+bodytext+'<p>'+
-                        '<a href="/missed_connections/'+id+'">more</a>'+
-                        '</div>'+
-                        '</div>';
+                        var contentString = '<div id="iw-container" class="infowindow">'+
+                            // '<div id="siteNotice">'+
+                            // '</div>'+
+                                '<div class="iw-title">'+headline+'</div>'+
+                                '<div class="iw-content">'+
+                                    '<p class="iw-subTitle"><i>'+place+' '+postdate+' '+source+'</i></p>'+
+                                    '<p>'+bodytext+'<p>'+
+                                    '<a href="/missed_connections/'+id+'">more</a>'+
+                                '</div>'+
+                                    '<div class="iw-bottom-gradient"></div>' +
+                            '</div>';
                         
+
+                        var icon_url = '';
+
+                        if (preference == 'm4m') {
+                            var icon_url = 'http://i.imgur.com/tzFX01D.png';
+                        } else if (preference == 'm4t') {
+                            var icon_url = 'http://i.imgur.com/6HsvjKD.png';
+                        } else if (preference == 'm4w') {
+                            var icon_url = 'http://i.imgur.com/t3jmiYL.png';
+                        } else if (preference == 't4m') {
+                            var icon_url = 'http://i.imgur.com/UGFQjwQ.png';
+                        } else if (preference == 't4t') {
+                            var icon_url = 'http://i.imgur.com/BdybBva.png';
+                        } else if (preference == 't4w') {
+                            var icon_url = 'http://i.imgur.com/SLPjTxb.png';
+                        } else if (preference == 'w4m') {
+                            var icon_url = 'http://i.imgur.com/ixTZpEj.png';
+                        } else if (preference == 'w4t') {
+                            var icon_url = 'http://i.imgur.com/Nxq4YFl.png';
+                        } else if (preference == 'w4w') {
+                            var icon_url = 'http://i.imgur.com/XqiTYNu.png';
+                        } else {
+                            var icon_url = 'http://i.imgur.com/JqL9xVx.png';
+                        };
+
                         if ( filterDate >= startDate && filterDate <= endDate ) {
                             markerCounter += 1;
 
                             var marker = new google.maps.Marker({
                                 // ADDED BY ME
+                                    icon: icon_url,
                                     body: bodytext,
                                     headline: headline,
                                     content: contentString,
@@ -415,6 +529,7 @@ var filterDates = function(){
                                 });
                             
                                 markers.push(marker);
+                                oms.addMarker(marker);
                         
                         // CREATE INFO WINDOWS FOR MARKERS
                                 infowindow = new google.maps.InfoWindow({
@@ -436,6 +551,58 @@ var filterDates = function(){
                                         content: ''
                                     });
                                 });
+
+                                                                  // *
+                                  // START INFOWINDOW CUSTOMIZE.
+                                  // The google.maps.event.addListener() event expects
+                                  // the creation of the infowindow HTML structure 'domready'
+                                  // and before the opening of the infowindow, defined styles are applied.
+                                  // *
+                                  google.maps.event.addListener(infowindow, 'domready', function() {
+
+                                    // Reference to the DIV that wraps the bottom of infowindow
+                                    var iwOuter = $('.gm-style-iw');
+
+                                    /* Since this div is in a position prior to .gm-div style-iw.
+                                     * We use jQuery and create a iwBackground variable,
+                                     * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
+                                    */
+                                    var iwBackground = iwOuter.prev();
+
+                                    // Removes background shadow DIV
+                                    iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+
+                                    // Removes white background DIV
+                                    iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+
+                                    // Moves the infowindow 115px to the right.
+                                    // iwOuter.parent().parent().css({left: '115px'});
+
+                                    // Moves the shadow of the arrow 76px to the left margin.
+                                    // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+
+                                    // Moves the arrow 76px to the left margin.
+                                    iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+
+                                    // Changes the desired tail shadow color.
+                                    iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'RGBA(1, 16, 25, .6) 0px 1px 6px', 'z-index' : '1'});
+
+                                    // Reference to the div that groups the close button elements.
+                                    var iwCloseBtn = iwOuter.next();
+
+                                    // Apply the desired effect to the close button
+                                    iwCloseBtn.css({opacity: '1', right: '38px', top: '3px', border: '7px solid #011019', 'border-radius': '13px', 'box-shadow': '0 0 5px RGBA(1, 16, 25, 1)'});
+
+                                    // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
+                                    if($('.iw-content').height() < 140){
+                                      $('.iw-bottom-gradient').css({display: 'none'});
+                                    }
+
+                                    // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
+                                    iwCloseBtn.mouseout(function(){
+                                      $(this).css({opacity: '1'});
+                                    });
+                                  });
                         };
                     }
                     // CREATES MARKER CLUSTERS
@@ -452,38 +619,8 @@ var filterDates = function(){
 
 // LKSJDFKLSDJLKFJSDLKJFLKJDF
 
-
-
 // SDKLFJSDLKJFLKSJDFLKJSDKLFJ
 
-
-
-
-
-// /*
-//  * The google.maps.event.addListener() event waits for
-//  * the creation of the infowindow HTML structure 'domready'
-//  * and before the opening of the infowindow defined styles
-//  * are applied.
-//  */
-// google.maps.event.addListener(infowindow, 'domready', function() {
-
-//    // Reference to the DIV which receives the contents of the infowindow using jQuery
-//    var iwOuter = $('.gm-style-iw');
-
-//     The DIV we want to change is above the .gm-style-iw DIV.
-//     * So, we use jQuery and create a iwBackground variable,
-//     * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
-    
-//    var iwBackground = iwOuter.prev();
-
-//    // Remove the background shadow DIV
-//    iwBackground.children(':nth-child(2)').css({'display' : 'none'});
-
-//    // Remove the white background DIV
-//    iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-
-// });
 
 
 window.onload = function(){

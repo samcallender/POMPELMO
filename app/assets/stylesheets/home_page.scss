@@ -1,0 +1,46 @@
+
+$primary-color: #011019;
+$font-color: #fff;
+$primary-font: Verdana, Geneva, sans-serif;
+
+#home-container{
+	height: 100%;
+	background-color: $primary-color;
+
+	h1, p {
+		font-family: $primary-font;
+		color: $font-color;
+		a{
+			text-decoration: none;
+		&:visited {
+      		color: $font-color;
+    	}
+    	&:link {
+      		color: $font-color;
+    		}
+		}
+	}
+}
+
+#intro {
+	width: 400px;
+	margin: 0 auto;
+	position: relative;
+	top: 100px;
+
+}
+
+#intro-blurb{
+	margin: 20px 0 20px 0;
+}
+
+#map-link {
+	border: solid 1px;
+	border-radius: 5px;
+	border-color: $font-color;
+	padding: 5px 10px 5px 10px;
+	margin: 0 auto;
+
+	width: 50px;
+	text-align: center;
+}

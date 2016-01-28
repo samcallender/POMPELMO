@@ -2,7 +2,15 @@
 	<!-- <h1>StaticPages#home</h1>
 <p>Find me in app/views/static_pages/home.html.erb</p>
  -->
-<div id="controls">	
+<div id="header">
+	<ul>
+		<li><a href="/">Home</a></li>
+		<li><a href="/map">Map</a></li>
+		<li><a href="/about">About</a></li>
+	</ul>	
+</div>
+
+<div id="controls" class="clear">	
 	<div id="mapdatecontrol">
 		<form id="dateform">
 			<input type="text" placeholder="YYYY-MM-DD" name="start_date">
@@ -42,9 +50,9 @@
 	</div>
 </div>
 
-<div id="map_container">
+<div id="map_container" class="clear">
 	<div id="loading" class="overlay standard hidden">&nbsp</div>
 	<div id="map"></div>
 </div>
     
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZuhGzk0_JhYU4ETFd9qehI13w99KQpOw&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.20&key=AIzaSyAZuhGzk0_JhYU4ETFd9qehI13w99KQpOw&callback=initMap"></script>
