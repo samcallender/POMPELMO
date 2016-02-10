@@ -26,7 +26,6 @@ function initMap() {
 	  map.setMapTypeId(customMapTypeId);
       getMarkers();
       loadOMS();
-
 }
 
 
@@ -244,6 +243,8 @@ var showMarkers = function() {
 
 var hideMarkers = function() {
     $("#removemarkers").on('click', function() {
+        filterArray = [];
+        $('.filter').removeClass('selected');
 
         markerCluster.setMap(null);
 
@@ -453,10 +454,10 @@ var filterDates = function(){
                         });
 
                     var form_data = $('#dateform').serializeArray();
-                    var userStartDate = form_data[0].value.split('-');
-                    var userEndDate = form_data[1].value.split('-');
-                    var startDate = parseInt(userStartDate[0]+userStartDate[1]+userStartDate[2]);
-                    var endDate = parseInt(userEndDate[0]+userEndDate[1]+userEndDate[2]);
+                    var userStartDate = form_data[0].value.split('/');
+                    var userEndDate = form_data[1].value.split('/');
+                    var startDate = parseInt(userStartDate[2]+userStartDate[0]+userStartDate[1]);
+                    var endDate = parseInt(userEndDate[2]+userEndDate[0]+userEndDate[1]);
 
                     markerCounter = 0;
                     for(var i = 0; i < data.length; i++) {
@@ -617,11 +618,20 @@ var filterDates = function(){
     });
 }
 
-// LKSJDFKLSDJLKFJSDLKJFLKJDF
+// DATE PICKER
 
-// SDKLFJSDLKJFLKSJDFLKJSDKLFJ
+var datePicker = function(){
+     $('.datepicker').datepicker();
+};
+
+  // $(function() {
+  //   $( "#datepicker1" ).datepicker();
+  //   $( "#datepicker2" ).datepicker();
+  // });
 
 
+
+// EVENT HANDLERS
 
 window.onload = function(){
     showMarkers();
@@ -636,6 +646,7 @@ window.onload = function(){
 
     filterDates();
     addToFilter();
+    datePicker();
 }
 
 

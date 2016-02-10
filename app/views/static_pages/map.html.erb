@@ -13,40 +13,42 @@
 <div id="controls" class="clear">	
 	<div id="mapdatecontrol">
 		<form id="dateform">
-			<input type="text" placeholder="YYYY-MM-DD" name="start_date">
-			<input type="text" placeholder="YYYY-MM-DD" name="end_date">
-			<button type="submit">Adjust Dates</button>
+			<input type="text" placeholder="start date" name="start_date" class="datepicker">
+			<input type="text" placeholder="end date" name="end_date" class="datepicker">
+			<div id="filter-header">
+				<p>Filter Options:</p>
+			</div>
+			<div id="mapcontrols">
+			 	<ul>
+			 		<li id="expand-options" class="mapoption filter">Options</li>
+			 		<li id="removemarkers" class="mapoption filter">Clear Map</li>
+			 		<div class="gender-group clear">
+			 			<!-- <li class="mapoption filter" id="addmarkers">All</li> -->
+			 		</div>
+			 		<div class="gender-group">
+					 		<li class="mapoption gender-option filter" id="m"> Men </li>	
+					 		<li class="mapoption preference-option filter" id="m4m">Men for Men</li>
+					 		<li class="mapoption preference-option filter" id="m4t">Men for Trans</li>
+					 		<li class="mapoption preference-option filter" id="m4w">Men for Women</li>	
+			 		</div>
+			 		<div class="gender-group">
+			 			<li class="mapoption gender-option filter" id="t"> Trans </li>	
+				 		<li class="mapoption preference-option filter" id="t4m">Trans for Men</li>
+				 		<li class="mapoption preference-option filter" id="t4t">Trans for Trans</li>
+				 		<li class="mapoption preference-option filter" id="t4w">Trans for Women</li>
+			 		</div>
+			 		<div class="gender-group">
+				 		<li class="mapoption gender-option filter" id="w"> Women </li>	
+				 		<li class="mapoption preference-option filter" id="w4m">Women for Men</li>
+				 		<li class="mapoption preference-option filter" id="w4t">Women for Trans</li>
+				 		<li class="mapoption preference-option filter" id="w4w">Women for Women</li>
+				 	</div>
+			 	</ul>
+			</div>
+			<div class="clear">	
+				<button type="submit">Adjust Dates</button>
+			</div>
 		</form>
-	</div>
-	<div id="filter-header">
-		<p>Filter Options:</p>
-	</div>
-	<div id="mapcontrols">
-	 	<ul>
-	 		<li id="expand-options" class="mapoption filter">Options</li>
-	 		<li id="removemarkers" class="mapoption filter">Clear Map</li>
-	 		<div class="gender-group clear">
-	 			<li class="mapoption filter" id="addmarkers">All</li>
-	 		</div>
-	 		<div class="gender-group">
-			 		<li class="mapoption gender-option filter" id="m"> Men </li>	
-			 		<li class="mapoption preference-option filter" id="m4m">Men for Men</li>
-			 		<li class="mapoption preference-option filter" id="m4t">Men for Trans</li>
-			 		<li class="mapoption preference-option filter" id="m4w">Men for Women</li>	
-	 		</div>
-	 		<div class="gender-group">
-	 			<li class="mapoption gender-option filter" id="t"> Trans </li>	
-		 		<li class="mapoption preference-option filter" id="t4m">Trans for Men</li>
-		 		<li class="mapoption preference-option filter" id="t4t">Trans for Trans</li>
-		 		<li class="mapoption preference-option filter" id="t4w">Trans for Women</li>
-	 		</div>
-	 		<div class="gender-group">
-		 		<li class="mapoption gender-option filter" id="w"> Women </li>	
-		 		<li class="mapoption preference-option filter" id="w4m">Women for Men</li>
-		 		<li class="mapoption preference-option filter" id="w4t">Women for Trans</li>
-		 		<li class="mapoption preference-option filter" id="w4w">Women for Women</li>
-		 	</div>
-	 	</ul>
 	</div>
 </div>
 
@@ -56,3 +58,4 @@
 </div>
     
 <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.20&key=AIzaSyAZuhGzk0_JhYU4ETFd9qehI13w99KQpOw&callback=initMap"></script>
+

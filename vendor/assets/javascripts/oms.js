@@ -8,7 +8,6 @@ Note: The Google Maps API v3 must be included *before* this code
 */
 
 var loadOMS = function() {
-console.log("oms loaded");
 
 (function() {
   var _ref,

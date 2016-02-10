@@ -15,4 +15,7 @@
 //= require turbolinks
 //= require markerclusterer
 //= require oms
+
+//= require jquery-ui
+//= require jquery-ui/datepicker
 //= require_tree .
