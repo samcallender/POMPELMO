@@ -23,7 +23,7 @@ $font-color: #fff;
 $primary-font: Verdana, Geneva, sans-serif;
 
 #header {
-  height: 35px;
+  height: 40px;
   background-color: $primary-color;
   text-decoration: none;
 
@@ -47,52 +47,6 @@ $primary-font: Verdana, Geneva, sans-serif;
       color: $font-color;
     }
   }
-}
-
-
-
-/*Detail Pages*/
-
-#summary_container{
-  height: 70%;
-  margin: 10px, 10px, 10px, 10px;
-  float: left;
-  width: 60%;
-}
-
-#detail_page_summary {
-  margin: 10px, 10px, 10px, 10px;
-  max-width: 63%;
-  /*float: right;*/
-}
-
-#detail_page_map_container {
-  margin: 10px, 10px, 10px, 10px;
-  /*max-width: 30%;*/
-  height: 50%;
-}
-
-#detail_page_map {
-  height: 100%;
-}
-
-#disqus_detail_page {
-	margin: 10px, 10px, 10px, 10px;
-	float: left;
-	width: 30%;
-}
-
-/*INFOWINDOWS*/
-
-/*.gm-style-iw is a google maps API class for infowindows*/
-.gm-style-iw {
-   width: 350px !important;
-   top: 0 !important;
-   left: 0 !important;
-   background-color: #fff;
-   /*box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);*/
-   /*border: 1px solid rgba(72, 181, 233, 0.6);
-   border-radius: 2px 2px 0 0;*/
 }
 
 /*LOADING IMAGE*/

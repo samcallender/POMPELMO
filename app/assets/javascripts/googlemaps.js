@@ -88,7 +88,7 @@ var getMarkers = function(){
                     var postdate =  data[i].post_date;
                     var id = data[i].id.toString();
                     var headline = data[i].headline;
-                    var bodytext = data[i].body_text;
+                    var bodytext = data[i].body_text.substring(0,120);
                     var preference = data[i].preference;
                     var place = data[i].place;
                     var latitude = +data[i].latitude;
@@ -104,8 +104,7 @@ var getMarkers = function(){
                                 '<div class="iw-title">'+headline+'</div>'+
                                 '<div class="iw-content">'+
                                     '<p class="iw-subTitle"><i>'+place+' '+postdate+' '+source+'</i></p>'+
-                                    '<p>'+bodytext+'<p>'+
-                                    '<a href="/missed_connections/'+id+'">more</a>'+
+                                    '<p>'+bodytext+'...'+'<a href="/missed_connections/'+id+'"><strong>click to see more</strong></a>'+'<p>'+
                                 '</div>'+
                                     '<div class="iw-bottom-gradient"></div>' +
                             '</div>';

@@ -1,0 +1,102 @@
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+/*CSS Reset*/
+.clear {
+  clear: both;
+  float: none;
+}
+
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+$primary-color: #011019;
+$font-color: #fff;
+$primary-font: Verdana, Geneva, sans-serif;
+$secondary-font: 'Open Sans', sans-serif;
+
+body{
+	background-color: RGBA(246, 246, 246, 1);
+}
+
+#show-intro {
+	background-color: $primary-color;
+	color: $font-color;
+	font-family: $primary-font;
+	text-align: center;
+
+	min-height: 300px;
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 20px;
+	padding: 25px 25px 25px 25px;
+	border-radius: 10px;
+}
+
+#show-headline {
+	font-family: 'Pacifico', cursive;
+	font-size: 40px;
+	width: 50%;
+	margin: 0 auto;
+	padding: 50px 0px 50px 0px;
+}
+
+#show-date {
+	font-family: $secondary-font;
+	padding-bottom: 25px;
+}
+
+#show-content{
+	padding: 50px 0px 25px 0px;
+	background-color: RGBA(246, 246, 246, 1);
+}
+
+#show-body-text {
+	font-size: 30px;
+	font-family: $primary-font;
+	color: $primary-color;
+
+	background-color: $font-color;
+	width: 70%;
+	padding: 25px 25px 25px 25px;
+	margin: 0 auto;
+	border-radius: 10px;
+}
+
+#show-back-to-map {
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 25px;
+}
+
+
+/*MAP*/
+/*#detail_page_map_container{
+	height: 300px;
+	width: 300px;
+	margin: 0 auto;
+}
+
+#detail_page_map{
+	height: 100%;
+	width:100%;
+}*/
+
+
+/*DISQUS*/
+#disqus_thread {
+	width: 70%;
+	margin: 0 auto;
+	margin-bottom: 25px;
+	background-color: $primary-color;
+	padding: 25px 25px 25px 25px;
+	border-radius: 10px;
+}
+
+

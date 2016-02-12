@@ -1,84 +1,62 @@
+<!-- <p id="notice"><%= notice %></p> -->
 
-  <a href="/map">Back To Map</a>
-<div id="summary_container">
-  
-  <!-- google map -->
-  <div id="detail_page_map_container">
-    <div id="detail_page_map"></div>
-  </div>
-
-  <div id="detail_page_summary">
-    <p id="notice"><%= notice %></p>
-<!--     <p>
-      <strong>Post:</strong>
-      <%= @missed_connection.post_id %>
-    </p> -->
-
-    <p>
-      <%= @missed_connection.headline %>
-    </p>
-
-    <p>
-      <strong>Post date:</strong>
-      <%= @missed_connection.post_date %>
-    </p>
-
-<!--     <p>
-      <strong>Page url:</strong>
-      <%= @missed_connection.page_url %>
-    </p>
-
-    <p>
-      <strong>Borough:</strong>
-      <%= @missed_connection.borough %>
-    </p> -->
-
-    <p>
-      <strong>Preference:</strong>
-      <%= @missed_connection.preference %>
-    </p>
-
-    <p>
-      <strong>Place:</strong>
-      <%= @missed_connection.place %>
-    </p>
-
-    <p>
-      <strong>Body text:</strong>
-      <%= @missed_connection.body_text %>
-    </p>
-
-    <p>
-      <strong>Location Source:</strong>
-      <%= @missed_connection.location_source %>
-    </p>
-
-<!--     <p>
-      <strong>Latitude:</strong>
-      <%= @missed_connection.latitude %>
-    </p>
-
-    <p>
-      <strong>Longitude:</strong>
-      <%= @missed_connection.longitude %>
-    </p>
-
-    <p>
-      <strong>Created at:</strong>
-      <%= @missed_connection.created_at %>
-    </p>
-
-    <p>
-      <strong>Updated at:</strong>
-      <%= @missed_connection.updated_at %>
-    </p>  -->
-  </div>
-
-
-  <%= link_to 'Edit', edit_missed_connection_path(@missed_connection) %> |
-  <%= link_to 'Back', missed_connections_path %>
-
+<div id="header">
+	<ul>
+		<li><a href="/">Home</a></li>
+		<li><a href="/map">Map</a></li>
+		<li><a href="/about">About</a></li>
+	</ul>	
 </div>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZuhGzk0_JhYU4ETFd9qehI13w99KQpOw&callback=initDetailMap"></script>
+<div id="show-intro">  
+  <p id="show-headline"><%= @missed_connection.headline %></p>
+  <p id="show-date"><%=@missed_connection.post_date%> | <%= @missed_connection.place %></p>
+</div>
 
+  <!-- google map -->
+<div id="detail_page_map_container">
+    <div id="detail_page_map"></div>
+</div>
+
+<div id="show-content"> 
+  <p id="show-body-text"><%= @missed_connection.body_text %></p>
+  <p id="show-back-to-map"><a href="/map">Back To Map</a></p>
+</div>
+
+
+
+
+<!--   <%= link_to 'Edit', edit_missed_connection_path(@missed_connection) %> |
+  <%= link_to 'Back', missed_connections_path %> -->
+
+
+
+
+
+<!-- Google Maps Script -->
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZuhGzk0_JhYU4ETFd9qehI13w99KQpOw&callback=initDetailMap"></script> -->
+
+
+<!-- Disqus section -->
+<div id="disqus_thread"></div>
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//thursty.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
