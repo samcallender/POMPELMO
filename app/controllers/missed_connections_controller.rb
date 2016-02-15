@@ -65,6 +65,12 @@ class MissedConnectionsController < ApplicationController
   # GET /missed_connections/1
   # GET /missed_connections/1.json
   def show
+    # convert timestamp string to mmddyyyy
+    date = @missed_connection.post_date
+    yyyy = date[0..3]
+    mm = date[5..6]
+    dd = date[8..9]
+    @display_date = mm+'/'+dd+'/'+yyyy
   end
 
   # GET /missed_connections/new

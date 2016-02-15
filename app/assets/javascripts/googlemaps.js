@@ -26,6 +26,15 @@ function initMap() {
 	  map.setMapTypeId(customMapTypeId);
       getMarkers();
       loadOMS();
+
+      // sets handlers when map initializes
+      revealGender();
+      hideGender();
+      revealOptions();
+      hideOptions();
+      filterDates();
+      addToFilter();
+      datePicker();
 }
 
 
@@ -96,6 +105,12 @@ var getMarkers = function(){
                     var latLng = new google.maps.LatLng(latitude, longitude);
                     var source = data[i].location_source;
 
+                    // converted date for filtering
+                    var parseDate = postdate.substring(0,10).split('-');
+                    var mm = parseInt(parseDate[1]).toString();
+                    var dd = parseInt(parseDate[2]).toString();
+                    var yyyy = parseInt(parseDate[0]).toString();
+                    var displayDate = mm+'/'+dd+'/'+yyyy;
 
                     // CONTENT STRING FOR INFO WINDOWS
                     var contentString = '<div id="iw-container" class="infowindow">'+
@@ -103,7 +118,7 @@ var getMarkers = function(){
                             // '</div>'+
                                 '<div class="iw-title">'+headline+'</div>'+
                                 '<div class="iw-content">'+
-                                    '<p class="iw-subTitle"><i>'+place+' '+postdate+' '+source+'</i></p>'+
+                                    '<p class="iw-subTitle"><i>'+displayDate+'</i></p>'+
                                     '<p>'+bodytext+'...'+'<a href="/missed_connections/'+id+'"><strong>click to see more</strong></a>'+'<p>'+
                                 '</div>'+
                                     '<div class="iw-bottom-gradient"></div>' +
@@ -463,7 +478,7 @@ var filterDates = function(){
                         var id = data[i].id.toString();
                         var postdate =  data[i].post_date;
                         var headline = data[i].headline;
-                        var bodytext = data[i].body_text;
+                        var bodytext = data[i].body_text.substring(0,120);
                         var preference = data[i].preference;
                         var place = data[i].place;
                         var latitude = +data[i].latitude;
@@ -482,8 +497,7 @@ var filterDates = function(){
                                 '<div class="iw-title">'+headline+'</div>'+
                                 '<div class="iw-content">'+
                                     '<p class="iw-subTitle"><i>'+place+' '+postdate+' '+source+'</i></p>'+
-                                    '<p>'+bodytext+'<p>'+
-                                    '<a href="/missed_connections/'+id+'">more</a>'+
+                                    '<p>'+bodytext+'...'+'<a href="/missed_connections/'+id+'"><strong>click to see more</strong></a>'+'<p>'+
                                 '</div>'+
                                     '<div class="iw-bottom-gradient"></div>' +
                             '</div>';
@@ -632,21 +646,37 @@ var datePicker = function(){
 
 // EVENT HANDLERS
 
-window.onload = function(){
-    showMarkers();
-    hideMarkers();
+// window.onload = function(){
+//     showMarkers();
+//     hideMarkers();
 
-    // filterMarkers();
+//     // filterMarkers();
 
-    revealGender();
-    hideGender();
-    revealOptions();
-    hideOptions();
+//     revealGender();
+//     hideGender();
+//     revealOptions();
+//     hideOptions();
 
-    filterDates();
-    addToFilter();
-    datePicker();
-}
+//     filterDates();
+//     addToFilter();
+//     datePicker();
+// };
+
+// $(document).ready(function(){
+//     showMarkers();
+//     hideMarkers();
+
+//     // filterMarkers();
+
+//     revealGender();
+//     hideGender();
+//     revealOptions();
+//     hideOptions();
+
+//     filterDates();
+//     addToFilter();
+//     datePicker();
+// });
 
 
 

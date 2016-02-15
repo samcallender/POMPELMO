@@ -2,7 +2,7 @@
 
 #controls{
   background-color: #011019;
-  top: 60px;
+  top: 90px;
   /*top: 130px;*/
   z-index: 1;
   position: fixed; 
@@ -57,6 +57,17 @@
 
 }
 
+#filter-submit {
+  margin: 10px 0px 5px 0px;
+
+
+  button{
+/*  margin: 0 auto;
+    display: block;*/
+    padding: 8px 8px 8px 8px;
+  }
+}
+
 /*MAP FILTER OPTIONS*/
 #mapcontrols {
   /*text-align: center;*/
@@ -88,7 +99,7 @@
   }
 }
 
-#filter-header {
+.filter-label {
   p {
   font-family: Verdana, Geneva, sans-serif;
   color: #fff;

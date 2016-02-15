@@ -13,9 +13,15 @@
 <div id="controls" class="clear">	
 	<div id="mapdatecontrol">
 		<form id="dateform">
-			<input type="text" placeholder="start date" name="start_date" class="datepicker">
-			<input type="text" placeholder="end date" name="end_date" class="datepicker">
-			<div id="filter-header">
+			<div class="filter-label">
+				<p>Start Date</p>
+			</div>
+			<input type="text" placeholder="MM/DD/YYYY" name="start_date" class="datepicker">
+			<div class="filter-label">
+				<p>End Date</p>
+			</div>
+			<input type="text" placeholder="MM/DD/YYYY" name="end_date" class="datepicker">
+			<div id="filter-header" class="filter-label">
 				<p>Filter Options:</p>
 			</div>
 			<div id="mapcontrols">
@@ -45,8 +51,8 @@
 				 	</div>
 			 	</ul>
 			</div>
-			<div class="clear">	
-				<button type="submit">Adjust Dates</button>
+			<div id=filter-submit class="clear">	
+				<button type="submit"><strong>Adjust Dates</strong></button>
 			</div>
 		</form>
 	</div>

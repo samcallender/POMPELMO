@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Pacifico);
+/*@import url(https://fonts.googleapis.com/css?family=Pacifico);*/
+@import url(https://fonts.googleapis.com/css?family=Kadwa);
 
 /*CSS Reset*/
 .clear {
@@ -18,7 +19,8 @@
 
 $primary-color: #011019;
 $font-color: #fff;
-$primary-font: Verdana, Geneva, sans-serif;
+/*$primary-font: Verdana, Geneva, sans-serif;*/
+$primary-font: 'Kadwa', serif;
 $secondary-font: 'Open Sans', sans-serif;
 
 body{
