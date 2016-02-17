@@ -490,17 +490,24 @@ var filterDates = function(){
                         var userFilterDate = postdate.substring(0,10).split('-');
                         var filterDate = filterDate = parseInt(userFilterDate[0]+userFilterDate[1]+userFilterDate[2]);
 
+                        // converted date for inforwindow display
+                        var parseDate = postdate.substring(0,10).split('-');
+                        var mm = parseInt(parseDate[1]).toString();
+                        var dd = parseInt(parseDate[2]).toString();
+                        var yyyy = parseInt(parseDate[0]).toString();
+                        var displayDate = mm+'/'+dd+'/'+yyyy;
+
                         // CONTENT STRING FOR INFO WINDOWS
                         var contentString = '<div id="iw-container" class="infowindow">'+
-                            // '<div id="siteNotice">'+
-                            // '</div>'+
-                                '<div class="iw-title">'+headline+'</div>'+
-                                '<div class="iw-content">'+
-                                    '<p class="iw-subTitle"><i>'+place+' '+postdate+' '+source+'</i></p>'+
-                                    '<p>'+bodytext+'...'+'<a href="/missed_connections/'+id+'"><strong>click to see more</strong></a>'+'<p>'+
-                                '</div>'+
-                                    '<div class="iw-bottom-gradient"></div>' +
-                            '</div>';
+                                // '<div id="siteNotice">'+
+                                // '</div>'+
+                                    '<div class="iw-title">'+headline+'</div>'+
+                                    '<div class="iw-content">'+
+                                        '<p class="iw-subTitle"><i>'+displayDate+'</i></p>'+
+                                        '<p>'+bodytext+'...'+'<a href="/missed_connections/'+id+'"><strong>click to see more</strong></a>'+'<p>'+
+                                    '</div>'+
+                                        '<div class="iw-bottom-gradient"></div>' +
+                                '</div>';
                         
 
                         var icon_url = '';
