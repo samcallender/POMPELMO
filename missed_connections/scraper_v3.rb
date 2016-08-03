@@ -10,7 +10,11 @@ require_relative 'connection.rb'
 require_relative 'missed_connection.rb'
 
 # google places api key
-api_key = 'AIzaSyALLZ3VXoyVYMYlgXocK-3mK5fvFquC2r8'
+# api_key = 'AIzaSyALLZ3VXoyVYMYlgXocK-3mK5fvFquC2r8'
+# old
+
+# new
+api_key = 'AIzaSyAhrxCd4B-f_KcDUHdBAi40uoHBNbkkEnQ'
 
 # STEP 2: target page/section, parse page determine additional pages to be scraped
 page = HTTParty.get('https://newyork.craigslist.org/search/mis')
@@ -129,6 +133,7 @@ connections_array.each do |m|
 	if latitude == ""
 		location_source = 'Google Places API'
 		puts "Google Places API"
+# Pry.start(binding)
 		total_api_requests += 1
 		keyword = place.lstrip.rstrip.gsub(/ /, "+")
 		result = HTTParty.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+api_location+'&radius='+api_radius+'&keyword='+keyword+'&key='+api_key)

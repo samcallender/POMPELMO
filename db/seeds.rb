@@ -18,7 +18,11 @@ require 'Pry'
 # require_relative 'missed_connection.rb'
 
 # google places api key
-api_key = 'AIzaSyALLZ3VXoyVYMYlgXocK-3mK5fvFquC2r8'
+# Old API
+# api_key = 'AIzaSyALLZ3VXoyVYMYlgXocK-3mK5fvFquC2r8'
+# New API
+api_key = 'AIzaSyAhrxCd4B-f_KcDUHdBAi40uoHBNbkkEnQ'
+
 
 # STEP 2: target page/section, parse page determine additional pages to be scraped
 page = HTTParty.get('https://newyork.craigslist.org/search/mis')
