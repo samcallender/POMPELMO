@@ -5,25 +5,25 @@ function initMap() {
     // OR
     // https://snazzymaps.com/style/151/ultra-light-with-labels
   var customMapType = new google.maps.StyledMapType([{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}], {
-	      name: 'Custom Style'
-	  });
-	  var customMapTypeId = 'custom_style';
+          name: 'Custom Style'
+      });
+      var customMapTypeId = 'custom_style';
 
 // IMPORTANT! 'map' has been set as a global variable
-	  map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 11,
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 11,
         scrollwheel: false,
-	    center: {lat: 40.758765, lng: -73.985206},  // Times Square
-	    mapTypeControlOptions: {
+        center: {lat: 40.758765, lng: -73.985206},  // Times Square
+        mapTypeControlOptions: {
           mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
-	    }
-	  });
+        }
+      });
 
     var transitLayer = new google.maps.TransitLayer();    
     transitLayer.setMap(map);
 
-	  map.mapTypes.set(customMapTypeId, customMapType);
-	  map.setMapTypeId(customMapTypeId);
+      map.mapTypes.set(customMapTypeId, customMapType);
+      map.setMapTypeId(customMapTypeId);
       getMarkers();
       loadOMS();
 
@@ -41,17 +41,17 @@ function initMap() {
 // DRAWING MARKERS AND DATA ON THE MAP
 
 var getMarkers = function(){
-	$(function(){
-		$.ajax({
-			url: '/missed_connections.json',
-			datatype: 'json',
+    $(function(){
+        $.ajax({
+            url: '/missed_connections.json',
+            datatype: 'json',
             beforeSend: function(){
                 $("#loading").removeClass('hidden');
             },
             complete: function(){
                 $("#loading").addClass('hidden');
             },
-			success: function(data){
+            success: function(data){
                 // OPTIONS AND MARKERS A ARRAY FOR MARKER CLUSTERS
                 var mcOptions = {gridSize: 50,
                     maxZoom: 15
@@ -93,7 +93,7 @@ var getMarkers = function(){
                     iw.close();
                     });
 
-				for(var i = 0; i < data.length; i++) {
+                for(var i = 0; i < data.length; i++) {
                     var postdate =  data[i].post_date;
                     var id = data[i].id.toString();
                     var headline = data[i].headline;
@@ -240,7 +240,7 @@ var getMarkers = function(){
   });
 
 
-				}
+                }
                 // CREATES MARKER CLUSTERS
                 markerCluster = new MarkerClusterer(map, markers, mcOptions);
             }
@@ -696,4 +696,3 @@ var datePicker = function(){
 
 // d = new Date();
 // d.yyyymmdd();
-
