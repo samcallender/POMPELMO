@@ -37,10 +37,26 @@ function initMap() {
       datePicker();
 }
 
+// Date method for filtering by YYYYMMDD
+// Date.prototype.yyyymmdd = function() {
+//   var mm = this.getMonth() + 1; // getMonth() is zero-based
+//   var dd = this.getDate();
+
+//   return [this.getFullYear(), !mm[1] && '0', mm, !dd[1] && '0', dd].join(''); // padding
+// };
+
+
 
 // DRAWING MARKERS AND DATA ON THE MAP
 
+
 var getMarkers = function(){
+    // get date range
+    var todayUTC = new Date();
+    var todayString = todayUTC.toISOString().slice(0,10).replace(/-/g,"");
+     today = parseInt(todayString);
+     todayMinusSeven = today - 30;
+
     $(function(){
         $.ajax({
             url: '/missed_connections.json',
@@ -112,6 +128,10 @@ var getMarkers = function(){
                     var yyyy = parseInt(parseDate[0]).toString();
                     var displayDate = mm+'/'+dd+'/'+yyyy;
 
+                    // converted date for filtering
+                    var userFilterDate = postdate.substring(0,10).split('-');
+                    var filterDate = parseInt(userFilterDate[0]+userFilterDate[1]+userFilterDate[2]);
+
                     // CONTENT STRING FOR INFO WINDOWS
                     var contentString = '<div id="iw-container" class="infowindow">'+
                             // '<div id="siteNotice">'+
@@ -148,44 +168,49 @@ var getMarkers = function(){
                         var icon_url = 'http://i.imgur.com/JqL9xVx.png';
                     };
 
+                    if (filterDate >= todayMinusSeven && filterDate <= today){
+                    // if ( 2 > 1){
+                   
 
-                    var marker = new google.maps.Marker({
-                        // ADDED BY ME
-                            // icon: "http://www.kidsafeseafood.org/wp-content/uploads/2011/07/icon_heart.png",
-                            icon: icon_url,
-                            body: bodytext,
-                            headline: headline,
-                            content: contentString,
-                        // REQUIRED
-                            position: latLng,
-                            map: map,
-                            title: headline
-                            // label: preference
-                        });
+                        var marker = new google.maps.Marker({
+                            // ADDED BY ME
+                                // icon: "http://www.kidsafeseafood.org/wp-content/uploads/2011/07/icon_heart.png",
+                                icon: icon_url,
+                                body: bodytext,
+                                headline: headline,
+                                content: contentString,
+                            // REQUIRED
+                                position: latLng,
+                                map: map,
+                                title: headline
+                                // label: preference
+                            });
+                            
+                        markers.push(marker);
+                        oms.addMarker(marker);
                         
-                    markers.push(marker);
-                    oms.addMarker(marker);
-                    
-                    // CREATE INFO WINDOWS FOR MARKERS
-                    infowindow = new google.maps.InfoWindow({
-                        content: ''
-                    });
-
-                    // EVENT LISTENER FOR INFO WINDOWS
-                      marker.addListener('click', function() {
-                        infowindow.content = this.content
-                        infowindow.open(map, this);
+                        
+                        // CREATE INFO WINDOWS FOR MARKERS
                         infowindow = new google.maps.InfoWindow({
-                        content: ''
+                            content: ''
                         });
-                    });
 
-                      marker.addListener('click', function(){
-                        infowindow.close();
-                        infowindow = new google.maps.InfoWindow({
-                        content: ''
-                        });
-                      });
+                        // EVENT LISTENER FOR INFO WINDOWS
+                          marker.addListener('click', function() {
+                                infowindow.content = this.content
+                                infowindow.open(map, this);
+                                infowindow = new google.maps.InfoWindow({
+                                content: ''
+                                });
+                            });
+
+                          marker.addListener('click', function(){
+                            infowindow.close();
+                            infowindow = new google.maps.InfoWindow({
+                            content: ''
+                            });
+                          });
+
 
                         // *
   // START INFOWINDOW CUSTOMIZE.
@@ -193,52 +218,54 @@ var getMarkers = function(){
   // the creation of the infowindow HTML structure 'domready'
   // and before the opening of the infowindow, defined styles are applied.
   // *
-  google.maps.event.addListener(infowindow, 'domready', function() {
+                          google.maps.event.addListener(infowindow, 'domready', function() {
 
-    // Reference to the DIV that wraps the bottom of infowindow
-    var iwOuter = $('.gm-style-iw');
+                            // Reference to the DIV that wraps the bottom of infowindow
+                            var iwOuter = $('.gm-style-iw');
 
-    /* Since this div is in a position prior to .gm-div style-iw.
-     * We use jQuery and create a iwBackground variable,
-     * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
-    */
-    var iwBackground = iwOuter.prev();
+                            /* Since this div is in a position prior to .gm-div style-iw.
+                             * We use jQuery and create a iwBackground variable,
+                             * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
+                            */
+                            var iwBackground = iwOuter.prev();
 
-    // Removes background shadow DIV
-    iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+                            // Removes background shadow DIV
+                            iwBackground.children(':nth-child(2)').css({'display' : 'none'});
 
-    // Removes white background DIV
-    iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+                            // Removes white background DIV
+                            iwBackground.children(':nth-child(4)').css({'display' : 'none'});
 
-    // Moves the infowindow 115px to the right.
-    // iwOuter.parent().parent().css({left: '115px'});
+                            // Moves the infowindow 115px to the right.
+                            // iwOuter.parent().parent().css({left: '115px'});
 
-    // Moves the shadow of the arrow 76px to the left margin.
-    // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+                            // Moves the shadow of the arrow 76px to the left margin.
+                            // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
 
-    // Moves the arrow 76px to the left margin.
-    iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+                            // Moves the arrow 76px to the left margin.
+                            iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
 
-    // Changes the desired tail shadow color.
-    iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'RGBA(1, 16, 25, .6) 0px 1px 6px', 'z-index' : '1'});
+                            // Changes the desired tail shadow color.
+                            iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'RGBA(1, 16, 25, .6) 0px 1px 6px', 'z-index' : '1'});
 
-    // Reference to the div that groups the close button elements.
-    var iwCloseBtn = iwOuter.next();
+                            // Reference to the div that groups the close button elements.
+                            var iwCloseBtn = iwOuter.next();
 
-    // Apply the desired effect to the close button
-    iwCloseBtn.css({opacity: '1', right: '38px', top: '3px', border: '7px solid #011019', 'border-radius': '13px', 'box-shadow': '0 0 5px RGBA(1, 16, 25, 1)'});
+                            // Apply the desired effect to the close button
+                            iwCloseBtn.css({opacity: '1', right: '38px', top: '3px', border: '7px solid #011019', 'border-radius': '13px', 'box-shadow': '0 0 5px RGBA(1, 16, 25, 1)'});
 
-    // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
-    if($('.iw-content').height() < 140){
-      $('.iw-bottom-gradient').css({display: 'none'});
-    }
+                            // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
+                            if($('.iw-content').height() < 140){
+                              $('.iw-bottom-gradient').css({display: 'none'});
+                            }
 
-    // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
-    iwCloseBtn.mouseout(function(){
-      $(this).css({opacity: '1'});
-    });
-  });
-
+                            // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
+                            iwCloseBtn.mouseout(function(){
+                              $(this).css({opacity: '1'});
+                            });
+                          });
+                        // End INFO WINDOW CLOSURE
+                    };
+                    // End IF Statement
 
                 }
                 // CREATES MARKER CLUSTERS
@@ -311,6 +338,7 @@ var hideOptions = function(){
 var filterMarkers = function() {
     $(".filter").on('click', function(){
         var option = this.id.toString();
+        console.log("filterMarkers");
         var url = '/missed_connections/'+option+'.json';
         markerCluster.setMap(null);
         for(var i = 0; i < markers.length; i++){
@@ -392,6 +420,7 @@ var filterMarkers = function() {
                         content: ''
                         });
                       });
+
                 }
                 // CREATES MARKER CLUSTERS
                 markerCluster = new MarkerClusterer(map, markers, mcOptions);
@@ -428,6 +457,7 @@ var addToFilter = function(){
 var filterDates = function(){
     // REMINDER:  change this to to use datepicker from JqueryUI
     $('#dateform').on('submit', function(event){
+        console.log("filterDates");
         event.preventDefault();
 
         markerCluster.setMap(null);
@@ -441,7 +471,7 @@ var filterDates = function(){
             var option = filterArray[i];
             var url = '/missed_connections/'+option+'.json'
 
-                    $(function(){
+            $(function(){
             $.ajax({
                 url: url,
                 datatype: 'json',
