@@ -198,10 +198,12 @@ var getMarkers = function(){
                         // EVENT LISTENER FOR INFO WINDOWS
                           marker.addListener('click', function() {
                                 infowindow.content = this.content
+                                console.log(this.content);
                                 infowindow.open(map, this);
                                 infowindow = new google.maps.InfoWindow({
                                 content: ''
                                 });
+                                // debugger;
                             });
 
                           marker.addListener('click', function(){
@@ -236,10 +238,10 @@ var getMarkers = function(){
                             iwBackground.children(':nth-child(4)').css({'display' : 'none'});
 
                             // Moves the infowindow 115px to the right.
-                            // iwOuter.parent().parent().css({left: '115px'});
+                            iwOuter.parent().parent().css({left: '115px'});
 
                             // Moves the shadow of the arrow 76px to the left margin.
-                            // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+                            iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
 
                             // Moves the arrow 76px to the left margin.
                             iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
