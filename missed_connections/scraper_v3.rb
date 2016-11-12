@@ -39,7 +39,7 @@ while i <= page_count do
 	
 	i += 1
 end
-
+Pry.(binding)
 # Number of missed connections
 total_connections = connections_array.length
 puts "there are #{total_connections} missed connections"
