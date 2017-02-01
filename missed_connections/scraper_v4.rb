@@ -61,7 +61,7 @@ connections_array.each do |m|
 	borough = m.css('.hdrlnk').xpath('@href').text[1..3]
 	last_index = m.css('.hdrlnk').text.length - 1
 	preference = m.css('.hdrlnk').text[last_index - 2..last_index]
-	place = m.css('.result-hood').text.gsub(/[()]/, "").gsub(/>/, "").gsub(/</, "").gsub(/pic/, "").gsub(/map/, "").lstrip.rstrip.gsub("\\", "")
+	place = m.css('.result-hood').text.gsub(/[()]/, "").gsub(/>/, "").gsub(/</, "").gsub(/pic/, "").gsub(/map/, "").gsub(/"/,'').lstrip.rstrip.gsub("\\", "")
 	# This scrapes the body from the post's detail page
 	detail_page = HTTParty.get('https://newyork.craigslist.org'+ page_url)
 	parse_detail_page = Nokogiri::HTML(detail_page)
